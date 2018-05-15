@@ -1,0 +1,107 @@
+<%= render 'parts/home_search' %>
+<!-- Content
+================================================== -->
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12">
+      <h3 class="headline centered margin-top-75">
+        <%= t('label.popular_categories') %>
+        <span><%= t('label.browse_categories').html_safe %></span>
+      </h3>
+    </div>
+
+  </div>
+</div>
+
+<% cache [I18n.locale, @categories] do %>
+<!-- Categories Carousel -->
+<div class="fullwidth-carousel-container margin-top-25">
+  <div class="fullwidth-slick-carousel category-carousel">
+    <!-- Item -->
+    <div class="fw-carousel-item">
+      <!-- this (first) box will be hidden under 1680px resolution -->
+      <% [@categories.first, @categories.first].each do |category| %>
+          <% next if category.nil? %>
+          <div class="category-box-container half">
+            <%= link_to properties_path(search: {property_cat_id: category.id}), class: 'category-box', data: { 'background-image': category.image.url(:medium) } do %>
+                <div class="category-box-content">
+                  <h3><%= category.name %></h3>
+                  <span><%= t('count.property', count: category.items_count) %></span>
+                </div>
+                <span class="category-box-btn"><%= t('label.browse') %></span>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+
+    <% @categories.each_with_index do |category, i| %>
+        <% next if i == 0 || category.nil? %>
+        <div class="fw-carousel-item">
+          <div class="category-box-container">
+            <%= link_to properties_path(search: {category_id: category.id}), class: 'category-box', data: { 'background-image': category.image.url(:medium) } do %>
+                <div class="category-box-content">
+                  <h3><%= category.name %></h3>
+                  <span><%= t('count.property', count: category.items_count) %></span>
+                </div>
+                <span class="category-box-btn"><%= t('label.browse') %></span>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+
+</div>
+ <% end %>
+<!-- Info Section -->
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="headline centered margin-top-80">
+        Plan The Vacation of Your Dreams
+        <span class="margin-top-25">Explore some of the best tips from around the world from our partners and friends.  Discover some of the most popular listings in Sydney.</span>
+      </h2>
+    </div>
+  </div>
+
+  <div class="row icons-container">
+    <!-- Stage -->
+    <div class="col-md-4">
+      <div class="icon-box-2 with-line">
+        <i class="im im-icon-Map2"></i>
+
+        <h3>Find Interesting Place</h3>
+
+        <p>Proin dapibus nisl ornare diam varius tempus. Aenean a quam luctus, finibus tellus ut, convallis eros
+          sollicitudin turpis.</p>
+      </div>
+    </div>
+
+    <!-- Stage -->
+    <div class="col-md-4">
+      <div class="icon-box-2 with-line">
+        <i class="im im-icon-Mail-withAtSign"></i>
+
+        <h3>Contact a Few Owners</h3>
+
+        <p>Maecenas pulvinar, risus in facilisis dignissim, quam nisi hendrerit nulla, id vestibulum metus nullam
+          viverra porta purus.</p>
+      </div>
+    </div>
+
+    <!-- Stage -->
+    <div class="col-md-4">
+      <div class="icon-box-2">
+        <i class="im im-icon-Checked-User"></i>
+
+        <h3>Make a Reservation</h3>
+
+        <p>Faucibus ante, in porttitor tellus blandit et. Phasellus tincidunt metus lectus sollicitudin feugiat
+          pharetra consectetur.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Info Section / End -->

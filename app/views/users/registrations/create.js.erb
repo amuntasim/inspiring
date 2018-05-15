@@ -1,0 +1,7 @@
+<% if resource.errors.empty? %>
+$('#registration-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {message: t('devise.registrations.signed_up_but_inactive'), type: 'notice'})%>')
+<% else %>
+$('#registration-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {message: resource.errors.full_messages.join(' <br> ') })%>')
+$('.authenticity_token').val('<%= form_authenticity_token %>')
+
+<% end %>

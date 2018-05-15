@@ -1,0 +1,93 @@
+<%= render 'parts/title_breadcrumb', title: t('label.my_profile') %>
+
+<div class="row">
+
+  <!-- Profile -->
+  <div class="col-lg-6 col-md-12">
+    <div class="dashboard-list-box margin-top-0">
+      <h4 class="gray">Profile Details</h4>
+      <%= form_for(current_user, :url => dashboard_profile_path, multipart: true, :html => { :method => :put, id: 'update-profile-form', :role => 'form' }) do |f| %>
+          <div class="dashboard-list-box-static">
+
+            <!-- Avatar -->
+            <div class="edit-profile-photo">
+              <%= image_tag current_user.avatar.url(:medium) %>
+              <div class="change-photo-btn">
+                <div class="photoUpload">
+                  <span><i class="fa fa-upload"></i> <%= t('label.upload_photo') %></span>
+                  <%= f.file_field :avatar, class: 'upload' %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="my-profile">
+
+              <label><%= t('attributes.name') %></label>
+              <%= f.text_field :name %>
+
+              <label><%= t('attributes.phone') %></label>
+              <%= f.text_field :phone %>
+
+              <label><%= t('attributes.email') %></label>
+              <%= f.text_field :email, disabled: true %>
+
+              <label><%= t('attributes.about') %></label>
+              <%= f.text_area :about, cols: 30, rows: 3 %>
+
+              <% SocialLink::USER_LINK_CATEGORIES.each do |link_category| %>
+                  <label><i class="fa fa-<%= link_category %>"></i>
+                    <%= t("social_links.#{link_category}") %></label>
+                  <%= f.fields_for :social_links, @social_links_map[link_category] || SocialLink.new do |slf| %>
+                      <%= slf.hidden_field :name, value: link_category, class: "#{link_category}-hidden" %>
+                      <%= slf.text_field :url, placeholder: "https://www.#{link_category}-url", "hidden-field-class" => "#{link_category}-hidden" %>
+                      <%= slf.check_box :_destroy, class: "#{link_category}-hidden-checkbox hidden" %>
+                  <% end %>
+              <% end %>
+            </div>
+
+            <%= f.submit class: 'button margin-top-15' %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Change Password -->
+  <div class="col-lg-6 col-md-12">
+    <div class="dashboard-list-box margin-top-0">
+      <h4 class="gray"><%= t('label.change_password') %></h4>
+      <%= form_for(current_user, :url => update_password_dashboard_profile_path, :html => { id: 'updae-password-form', :method => :put, :role => 'form' }) do |f| %>
+          <div class="dashboard-list-box-static">
+
+            <!-- Change Password -->
+            <div class="my-profile">
+              <label class="margin-top-0"><%= t('attributes.current_password') %></label>
+              <%= f.password_field :current_password %>
+
+              <label><%= t('attributes.password') %></label>
+              <%= f.password_field :password %>
+
+              <label><%= t('attributes.password_confirmation') %></label>
+              <%= f.password_field :password_confirmation %>
+
+              <button class="button margin-top-15" type="submit"><%= t('label.change_password') %></button>
+            </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+      $('#update-profile-form').submit(function() {
+          $.each($('[hidden-field-class]'), function(i, input){
+              if($.trim($(input).val()).length ==  0) {
+                  var classPrefix = $(input).attr('hidden-field-class');
+                  $('.' + classPrefix).val('')
+                  $('.' + classPrefix + '-checkbox').attr('checked', 1)
+              }
+          })
+      });
+  })
+</script>

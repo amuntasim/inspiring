@@ -1,0 +1,17 @@
+<div class="messages-area">
+  <%= render partial: 'agent_dashboard/messages/single_message', collection: messages, as: :message %>
+</div>
+
+<!-- Reply Area -->
+<div class="clearfix"></div>
+<%= form_for Message.new(base_message.attributes.slice('property_id', 'reservation_id').merge(parent_id: base_message.id, recipient_id: base_message.user_id)), url: form_url, remote: true do |f| %>
+    <%= f.hidden_field :property_id %>
+    <%= f.hidden_field :reservation_id %>
+    <%= f.hidden_field :parent_id %>
+    <%= f.hidden_field :recipient_id %>
+    <div id="message-notification"></div>
+    <div class="message-reply">
+  <%= f.text_area :body, cols: 40, rows: 3, place_holder: t('label.your_message') %>
+  <button class="button" type="submit"><%= t('label.send_message') %></button>
+</div>
+<% end %>

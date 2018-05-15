@@ -1,0 +1,43 @@
+<% property_id ||= nil %>
+<% space_id ||= nil %>
+<div class="add-review-box">
+
+  <!-- Add Review -->
+  <h3 class="listing-desc-headline margin-bottom-20"><%= t('label.add_review') %></h3>
+
+  <span class="leave-rating-title"><%= t('label.your_rating') %></span>
+  <%= form_for Review.new(property_id: property_id, space_id: space_id), url: dashboard_reviews_path, remote: true do |f| %>
+      <%= f.hidden_field :property_id %>
+      <%= f.hidden_field :space_id %>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Leave Rating -->
+          <div class="clearfix"></div>
+          <div class="leave-rating margin-bottom-30">
+            <% 5.downto(1).each do |number| %>
+                <%= f.radio_button :rating, number %>
+                <label for="review_rating_<%= number %>" class="fa fa-star"></label>
+            <% end %>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-6">
+
+        </div>
+      </div>
+
+      <!-- Review Comment -->
+      <fieldset>
+
+        <div id="review-notification"></div>
+        <div>
+          <label><span><%= t('activerecord.models.review') %></span> <span>:</span></label>
+          <%= f.text_area :comment, cols: 40, rows: 3 %>
+        </div>
+      </fieldset>
+
+      <button class="button <%= 'open-login-dialog' unless current_user %>"><%= t('helpers.submit.submit') %></button>
+      <div class="clearfix"></div>
+  <% end %>
+</div>

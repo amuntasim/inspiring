@@ -1,0 +1,6 @@
+$('.message-blank-div').addClass('messages-container-inner');
+$('.messages-headline-title').text('<%= @message.user.try(:name) %>');
+$('.messages-inbox li.active').removeClass('active');
+$('#message-link-<%= @message.id %>').removeClass('unread').addClass('active <%= @message.status %>');
+$('.message-content').html('<%= escape_javascript(render partial: 'message_detail',
+locals: {messages: @all_messages, target_message: @message, base_message: @base_message, form_url: agent_dashboard_messages_path} ) %>');

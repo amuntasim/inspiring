@@ -1,0 +1,10 @@
+<% if @review.errors.empty? %>
+$('#review-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {type: "notice", message: t('label.review_added') })%>')
+$('form#new_review')[0].reset();
+$('#reviews-container').prepend('<%=escape_javascript(render partial: 'properties/review',locals: {review: @review })%>')
+starRating('.star-rating');
+$('.total_reviews').text(parseInt($('.total_reviews').text()) + 1);
+<% else %>
+$('#review-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {message: @review.errors.full_messages.join('<br>') })%>')
+<% end %>
+$('[name="authenticity_token"]').val('<%= form_authenticity_token %>')

@@ -1,0 +1,49 @@
+<%= render 'parts/title_breadcrumb', title: t('label.my_properties') %>
+
+<div class="row">
+
+  <!-- Listings -->
+  <div class="col-lg-12 col-md-12">
+    <div class="dashboard-list-box margin-top-0">
+      <h4>Active Listings</h4>
+      <ul>
+        <% @properties.each do |property| %>
+        <li>
+          <div class="list-box-listing">
+            <div class="list-box-listing-img">
+              <%= link_to  agent_dashboard_property_path(property) do %>
+                  <%= image_tag property.main_image_url(:thumb).to_s %>
+                  <% end %>
+            </div>
+            <div class="list-box-listing-content">
+              <div class="inner">
+                <h3>
+                  <%= link_to  agent_dashboard_property_path(property) do %>
+                      <%= property.name %>
+                  <% end %>
+                </h3>
+                <span>964 School Street, New York</span>
+                <div class="star-rating" data-rating="3.5">
+                  <div class="rating-counter">(12 reviews)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="buttons-to-right">
+            <%= link_to  edit_agent_dashboard_property_path(property), class: 'button gray' do%>
+                <i class="sl sl-icon-note"></i> <%= t("label.edit") %>
+                <% end %>
+            <%= link_to  agent_dashboard_property_path(property), method: :delete, class: 'button gray', data: { confirm: 'Are you sure?' } do%>
+                <i class="sl sl-icon-close"></i> <%= t("label.delete") %>
+            <% end %>
+          </div>
+        </li>
+         <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<br>
+<%= link_to t('label.add_property'), new_agent_dashboard_property_path, class: 'button border with-icon' %>

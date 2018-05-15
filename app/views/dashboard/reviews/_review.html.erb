@@ -1,0 +1,24 @@
+<li>
+  <div class="comments listing-reviews">
+    <ul>
+      <li id="<%= dom_id(review) %>">
+        <div class="avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt=""> </div>
+        <div class="comment-content"><div class="arrow-comment"></div>
+          <div class="comment-by"><div class="comment-by-listing"><span><%= t('label.on') %></span>  <span><%= review_on_for_agent(review).to_s.html_safe %></span></div>
+            <span class="date">
+              <time class="timeago" datetime="<%= review.created_at.getutc.iso8601 %>">
+               <%= review.created_at.to_s %>
+              </time>
+            </span>
+            <div class="star-rating" data-rating="<%= review.rating %>"></div>
+          </div>
+          <p>
+            <%= review.comment %>
+          </p>
+          <a href="#small-dialog" class="rate-review popup-with-zoom-anim"><i class="sl sl-icon-pencil"></i> <%= t('label.edit') %></a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</li>

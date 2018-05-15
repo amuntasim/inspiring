@@ -1,0 +1,16 @@
+<% flash.each do |name, msg| %>
+    <div class="notification <%= name.to_s == 'alert' ? 'error' : name %> closeable">
+      <% if msg.is_a?(String) %>
+          <p><span></span> <%= msg %></p>
+      <% else %>
+          <p><span></span>
+          <ul>
+            <% msg.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+          </p>
+      <% end %>
+      <a class="close" href="javascript:void(0)"></a>
+    </div>
+<% end %>

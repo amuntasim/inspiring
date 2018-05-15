@@ -1,0 +1,118 @@
+<!-- Sign In Popup -->
+<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+
+  <div class="small-dialog-header">
+    <h3 class="sign-in-popup-header"><%= t('label.login') %></h3>
+  </div>
+
+  <!--Tabs -->
+  <div class="sign-in-form style-1">
+
+    <ul class="tabs-nav">
+      <li class=""><a class="login-tab-link" href="#login-tab"><%= t('label.login') %></a></li>
+      <li><a href="#register-tab"><%= t('label.register') %></a></li>
+      <li><a class="hidden forget-password-tab-link" href="#forget-password-tab"><%= t('label.lost_password') %></a></li>
+    </ul>
+
+    <div class="tabs-container alt">
+      <% @form_authenticity_token = form_authenticity_token %>
+      <!-- Login -->
+      <div class="tab-content" id="login-tab" style="display: none;">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+            <%= hidden_field_tag :authenticity_token, @form_authenticity_token, id: nil, class: 'authenticity_token' %>
+            <div id="login-notification"></div>
+            <p class="form-row form-row-wide">
+              <label for="user_email">
+                <%= t('attributes.email') %>
+                <i class="im im-icon-Male"></i>
+                <%= f.email_field :email, autofocus: true, autocomplete: t('attributes.email') %>
+              </label>
+            </p>
+
+            <p class="form-row form-row-wide">
+              <label for="user_password">
+                <%= t('attributes.password') %>
+                <i class="im im-icon-Lock-2"></i>
+                <%= f.password_field :password, autocomplete: "off" %>
+              </label>
+									<span class="lost_password">
+										<%= link_to t('label.lost_password'), 'javascript:void(0)', class: 'forget-password-tab' %>
+									</span>
+            </p>
+
+            <div class="form-row">
+              <%= f.submit t('label.login'), class: "button border margin-top-5" %>
+
+              <div class="checkboxes margin-top-10">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+
+      <!-- Register -->
+      <div class="tab-content" id="register-tab" style="display: none;">
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: 'registration_form' }, remote: true) do |f| %>
+            <%= hidden_field_tag :authenticity_token, @form_authenticity_token, id: nil, class: 'authenticity_token' %>
+            <div id="registration-notification"></div>
+
+            <p class="form-row form-row-wide">
+              <label for="name">
+                <%= t('attributes.name') %>
+                <i class="im im-icon-Male"></i>
+                <%= f.text_field localized_field_name(:name), autofocus: true, autocomplete: t('attributes.name') %>
+              </label>
+            </p>
+
+            <p class="form-row form-row-wide">
+              <label for="email">
+                <%= t('attributes.email') %>
+                <i class="im im-icon-Male"></i>
+                <%= f.email_field :email, id: 'registration_email', autofocus: true, autocomplete: t('attributes.email') %>
+              </label>
+            </p>
+
+
+            <p class="form-row form-row-wide">
+              <label for="password">
+                <%= t('attributes.password') %>
+                <i class="im im-icon-Lock-2"></i>
+                <%= f.password_field :password, id: 'registration_password', autocomplete: "off" %>
+              </label>
+									<span class="lost_password">
+										<%= link_to t('label.lost_password'), 'javascript:void(0)', class: 'forget-password-tab' %>
+									</span>
+            </p>
+
+            <div class="form-row">
+              <%= f.submit t('label.register'), class: "button border margin-top-5" %>
+            </div>
+        <% end %>
+      </div>
+
+      <!-- Forget password -->
+      <div class="tab-content" id="forget-password-tab" style="display: none;">
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { id: 'forget-password-form', method: :post }) do |f| %>
+            <div id="forget-password-notification"></div>
+
+            <p class="form-row form-row-wide">
+              <label for="email">
+                <%= t('attributes.email') %>
+                <i class="im im-icon-Male"></i>
+                <%= f.email_field :email, id: 'forget-password-email', autofocus: true, autocomplete: t('attributes.email') %>
+              </label>
+            </p>
+
+            <div class="actions">
+              <%= f.submit "Send me reset password instructions" %>
+            </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Sign In Popup / End -->

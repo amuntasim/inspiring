@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head><base href='http://localhost:3000' />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Match</title>
+  <meta name="description" content="Space Match">
+  <link rel="stylesheet" media="all" href="/assets/application-8bd7a4a5ae73357009f45068eb58152124c1376ca943ee89e62f583fb1a8068b.css" data-turbolinks-track="reload" />
+  <link rel="stylesheet" media="all" href="/assets/colors/main-a58a99595c5d7207e4e43bea8382f3d7f7458776e2a34366a44f84145173375e.css" data-turbolinks-track="reload" id="colors" />
+  <script></script>
+  <script src="/assets/application-eca9e28963dbdda9d18cece6bce40fcb09cd6d125d455b4beda4fe1dbbe21b64.js" data-turbolinks-track="reload"></script>
+  
+</head>
+<body class="ltr">
+<div id="wrapper">
+  <!-- Header Container
+================================================== -->
+<header id="header-container" class="">
+
+  <!-- Header -->
+  <div id="header">
+    <div class="container">
+
+      <!-- Left Side Content -->
+      <div class="left-side">
+
+        <!-- Logo -->
+        <div id="logo">
+          <a href="/"><img src="/assets/logo-fb552b7767e372471cc25a60deae0dfd7c2f173fb2018d878c4bc53037076363.png" alt="Logo" /></a>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mmenu-trigger">
+          <button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+          </button>
+        </div>
+
+      </div>
+      <!-- Left Side Content / End -->
+
+
+      <!-- Right Side Content / End -->
+      <div class="right-side">
+        <div class="header-widget">
+              <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Sign In
+              </a>
+
+
+          <a class="button border with-icon" href="/properties/new">
+              <i class="sl sl-icon-plus"></i> Add Property
+</a>          <div class="user-menu">
+  <div class="user-name">
+    English
+  </div>
+  <ul>
+        <li>
+          <a href="http://www.example.com/?locale=ar">العربية</a>
+        </li>
+  </ul>
+</div>
+<script type="text/javascript" charset="utf-8">
+    jQuery.timeago.settings.lang="en";
+</script>
+
+        </div>
+      </div>
+      <!-- Right Side Content / End -->
+
+
+    </div>
+  </div>
+  <!-- Header / End -->
+
+</header>
+<div class="clearfix"></div>
+<!-- Header Container / End -->
+
+  <!-- Sign In Popup -->
+<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+
+  <div class="small-dialog-header">
+    <h3 class="sign-in-popup-header">Login</h3>
+  </div>
+
+  <!--Tabs -->
+  <div class="sign-in-form style-1">
+
+    <ul class="tabs-nav">
+      <li class=""><a class="login-tab-link" href="#login-tab">Login</a></li>
+      <li><a href="#register-tab">Register</a></li>
+      <li><a class="hidden forget-password-tab-link" href="#forget-password-tab">Lost Your Password?</a></li>
+    </ul>
+
+    <div class="tabs-container alt">
+      <!-- Login -->
+      <div class="tab-content" id="login-tab" style="display: none;">
+        <form class="new_user" id="new_user" action="/users/sign_in" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="authenticity_token" value="YeQ40ntMFoOit1eFfucX5QHfAacrwTvKFi8g/uNFQcZgJadeadxdvErxL3iPSaEelIBcBkQ3lP13bMlbzLay6w==" class="authenticity_token" />
+            <div id="login-notification"></div>
+            <p class="form-row form-row-wide">
+              <label for="user_email">
+                Email
+                <i class="im im-icon-Male"></i>
+                <input autofocus="autofocus" autocomplete="Email" type="email" value="" name="user[email]" id="user_email" />
+              </label>
+            </p>
+
+            <p class="form-row form-row-wide">
+              <label for="user_password">
+                Password
+                <i class="im im-icon-Lock-2"></i>
+                <input autocomplete="off" type="password" name="user[password]" id="user_password" />
+              </label>
+									<span class="lost_password">
+										<a class="forget-password-tab" href="javascript:void(0)">Lost Your Password?</a>
+									</span>
+            </p>
+
+            <div class="form-row">
+              <input type="submit" name="commit" value="Login" class="button border margin-top-5" data-disable-with="Login" />
+
+              <div class="checkboxes margin-top-10">
+                <input name="user[remember_me]" type="hidden" value="0" /><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me" />
+                <label for="user_remember_me">Remember me</label>
+              </div>
+            </div>
+</form>      </div>
+
+      <!-- Register -->
+      <div class="tab-content" id="register-tab" style="display: none;">
+
+        <form id="registration_form" class="new_user" action="/users" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+            <input type="hidden" name="authenticity_token" value="YeQ40ntMFoOit1eFfucX5QHfAacrwTvKFi8g/uNFQcZgJadeadxdvErxL3iPSaEelIBcBkQ3lP13bMlbzLay6w==" class="authenticity_token" />
+            <div id="registration-notification"></div>
+
+            <p class="form-row form-row-wide">
+              <label for="name">
+                Name
+                <i class="im im-icon-Male"></i>
+                <input autofocus="autofocus" autocomplete="Name" type="text" name="user[i18n_en_name]" id="user_i18n_en_name" />
+              </label>
+            </p>
+
+            <p class="form-row form-row-wide">
+              <label for="email">
+                Email
+                <i class="im im-icon-Male"></i>
+                <input id="registration_email" autofocus="autofocus" autocomplete="Email" type="email" value="" name="user[email]" />
+              </label>
+            </p>
+
+
+            <p class="form-row form-row-wide">
+              <label for="password">
+                Password
+                <i class="im im-icon-Lock-2"></i>
+                <input id="registration_password" autocomplete="off" type="password" name="user[password]" />
+              </label>
+									<span class="lost_password">
+										<a class="forget-password-tab" href="javascript:void(0)">Lost Your Password?</a>
+									</span>
+            </p>
+
+            <div class="form-row">
+              <input type="submit" name="commit" value="Register" class="button border margin-top-5" data-disable-with="Register" />
+            </div>
+</form>      </div>
+
+      <!-- Forget password -->
+      <div class="tab-content" id="forget-password-tab" style="display: none;">
+
+        <form id="forget-password-form" class="new_user" action="/users/password" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+            <div id="forget-password-notification"></div>
+
+            <p class="form-row form-row-wide">
+              <label for="email">
+                Email
+                <i class="im im-icon-Male"></i>
+                <input id="forget-password-email" autofocus="autofocus" autocomplete="Email" type="email" value="" name="user[email]" />
+              </label>
+            </p>
+
+            <div class="actions">
+              <input type="submit" name="commit" value="Send me reset password instructions" data-disable-with="Send me reset password instructions" />
+            </div>
+</form>      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Sign In Popup / End -->
+
+  <div class="flash-container">
+    
+  </div>
+  <!-- Banner
+================================================== -->
+<div class="main-search-container" data-background-image="assets/main-search-background-01.jpg">
+  <div class="main-search-inner">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Find Nearby Attractions</h2>
+          <h4>Expolore top-rated attractions, activities and more</h4>
+          <form novalidate="novalidate" class="simple_form search" action="http://www.example.com/properties" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+              <div class="main-search-input">
+
+                <div class="main-search-input-item">
+                  <input type="text" placeholder="What are you looking for?" value=""/>
+                </div>
+
+                <div class="main-search-input-item">
+                  <div class="form-group select required search_city_id"><select class="form-control select required chosen-select-deselect" name="search[city_id]" id="search_city_id"><option value=""></option>
+</select></div>
+                  <!--<a href="#"><i class="fa fa-dot-circle-o"></i></a>-->
+                </div>
+
+                <div class="main-search-input-item">
+                  <div class="form-group select required search_space_category_id"><select class="form-control select required chosen-select-deselect" name="search[space_category_id]" id="search_space_category_id"><option value=""></option>
+</select></div>
+                </div>
+
+                <button class="button space-search">Search</button>
+
+              </div>
+</form>        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12">
+      <h3 class="headline centered margin-top-75">
+        Popular Categories
+        <span>Browse <i>the most desirable</i> categories</span>
+      </h3>
+    </div>
+
+  </div>
+</div>
+
+<!-- Categories Carousel -->
+<div class="fullwidth-carousel-container margin-top-25">
+  <div class="fullwidth-slick-carousel category-carousel">
+    <!-- Item -->
+    <div class="fw-carousel-item">
+      <!-- this (first) box will be hidden under 1680px resolution -->
+    </div>
+
+  </div>
+
+</div>
+<!-- Info Section -->
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="headline centered margin-top-80">
+        Plan The Vacation of Your Dreams
+        <span class="margin-top-25">Explore some of the best tips from around the world from our partners and friends.  Discover some of the most popular listings in Sydney.</span>
+      </h2>
+    </div>
+  </div>
+
+  <div class="row icons-container">
+    <!-- Stage -->
+    <div class="col-md-4">
+      <div class="icon-box-2 with-line">
+        <i class="im im-icon-Map2"></i>
+
+        <h3>Find Interesting Place</h3>
+
+        <p>Proin dapibus nisl ornare diam varius tempus. Aenean a quam luctus, finibus tellus ut, convallis eros
+          sollicitudin turpis.</p>
+      </div>
+    </div>
+
+    <!-- Stage -->
+    <div class="col-md-4">
+      <div class="icon-box-2 with-line">
+        <i class="im im-icon-Mail-withAtSign"></i>
+
+        <h3>Contact a Few Owners</h3>
+
+        <p>Maecenas pulvinar, risus in facilisis dignissim, quam nisi hendrerit nulla, id vestibulum metus nullam
+          viverra porta purus.</p>
+      </div>
+    </div>
+
+    <!-- Stage -->
+    <div class="col-md-4">
+      <div class="icon-box-2">
+        <i class="im im-icon-Checked-User"></i>
+
+        <h3>Make a Reservation</h3>
+
+        <p>Faucibus ante, in porttitor tellus blandit et. Phasellus tincidunt metus lectus sollicitudin feugiat
+          pharetra consectetur.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Info Section / End -->
+
+  <!-- Footer
+================================================== -->
+<div id="footer" class="sticky-footer">
+  <!-- Main -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-sm-6">
+        <img class="footer-logo" src="/assets/logo-fb552b7767e372471cc25a60deae0dfd7c2f173fb2018d878c4bc53037076363.png" alt="Logo" />
+        <br><br>
+        <p>Morbi convallis bibendum urna ut viverra. Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper.</p>
+      </div>
+
+      <div class="col-md-4 col-sm-6 ">
+        <h4>Helpful Links</h4>
+        <ul class="footer-links">
+          <li>
+            <a class="" href="/properties/new">
+                 Add Property
+</a>          </li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="col-md-3  col-sm-12">
+        <h4>Contact Us</h4>
+        <div class="text-widget">
+          <span>12345 Little Lonsdale St, Melbourne</span> <br>
+          Phone: <span>(123) 123-456 </span><br>
+          E-Mail:<span> <a href="#">office@example.com</a> </span><br>
+        </div>
+
+        <ul class="social-icons margin-top-20">
+          <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+          <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+          <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+          <li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="copyrights"><span>© 2018</span> <span>Spacematch. All rights recerved.</span> </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- Footer / End -->
+
+  <!-- Back To Top Button -->
+  <div id="backtotop"><a href="#"></a></div>
+
+</div>
+</body>
+</html>
+
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+//        if($('.flash-container .notification').length > 0){
+//            $('.flash-container').css('marginTop', '100px');
+//        }
+    })
+</script>

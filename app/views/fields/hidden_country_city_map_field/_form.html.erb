@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    var countryCoordinates = <%= Country.id_coordinates_map.to_json.html_safe %>;
+    var CityMapMap = {};
+    var coordinateMapObj = coordinateMapObj || {};
+    jQuery(function ($) {
+        CityMapMap.setCityMapMapLocationMap = function (obj) {
+            var selectedOption = $(obj).find(":selected");
+            var latLongData = countryCoordinates[selectedOption.val()];
+
+            if (latLongData && latLongData[0]) {
+                try {
+                    coordinateMapObj.setCenter(new google.maps.LatLng(latLongData[0], latLongData[1]))
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+        }
+        $(document).on('change', '#city_country_id', function () {
+            CityMapMap.setCityMapMapLocationMap(this);
+        });
+        //
+    });
+</script>

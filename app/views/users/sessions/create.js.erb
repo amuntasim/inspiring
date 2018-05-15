@@ -1,0 +1,7 @@
+<% if current_user %>
+<% flash.discard %>
+location.href = '<%= after_sign_in_path %>';
+<% else %>
+$('#login-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {message: t('notifications.invalid_login') })%>')
+$('.authenticity_token').val('<%= form_authenticity_token %>')
+<% end %>

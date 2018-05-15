@@ -1,0 +1,20 @@
+<%= render 'parts/title_breadcrumb', title: t('label.reviews') %>
+
+<div class="row">
+
+  <!-- Listings -->
+  <div class="col-lg-12 col-md-12">
+    <div class="dashboard-list-box margin-top-0">
+      <div class="sort-by">
+        <div class="sort-by-select">
+
+        </div>
+      </div>
+      <h4><%= t('label.reviews') %></h4>
+      <ul>
+        <%= render @reviews %>
+      </ul>
+      <%= will_paginate @reviews, previous_label: "<i class='sl sl-icon-arrow-left'></i>", next_label: "<i class='sl sl-icon-arrow-right'></i>" %>
+    </div>
+  </div>
+</div>

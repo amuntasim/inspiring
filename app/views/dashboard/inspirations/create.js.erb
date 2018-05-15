@@ -1,0 +1,5 @@
+<% if @inspiration.destroyed? %>
+$('.like-icon[property-id=<%= @inspiration.property_id %>]').removeClass('liked');
+<% else %>
+$('.like-icon[property-id=<%= @inspiration.property_id %>]').addClass('liked');
+<% end %>

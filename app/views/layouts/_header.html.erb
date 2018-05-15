@@ -1,0 +1,92 @@
+<!-- Header Container
+================================================== -->
+<header id="header-container" class="<%= @header_classes %>">
+
+  <!-- Header -->
+  <div id="header">
+    <div class="container">
+
+      <!-- Left Side Content -->
+      <div class="left-side">
+
+        <!-- Logo -->
+        <div id="logo">
+          <%= link_to image_tag('logo.png'), root_path %>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mmenu-trigger">
+          <button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+          </button>
+        </div>
+
+      </div>
+      <!-- Left Side Content / End -->
+
+
+      <!-- Right Side Content / End -->
+      <div class="right-side">
+        <div class="header-widget">
+          <% if current_user %>
+              <!-- User Menu -->
+              <div class="user-menu">
+                <div class="user-name"><span><%= image_tag current_user.avatar.url(:thumb) %></span>
+                  <%= t('label.my_account') %>
+                </div>
+                <ul>
+                  <li>
+                    <%= link_to dashboard_path do %>
+                        <i class="sl sl-icon-settings"></i> <%= t('label.dashboard') %>
+                    <% end %>
+                  </li>
+                  <% if current_user.property_owner? %>
+                      <li>
+                        <%= link_to agent_dashbord_path do %>
+                            <i class="sl sl-icon-settings"></i> <%= t('label.property_owner_dashboard') %>
+                        <% end %>
+                      </li>
+                  <% end %>
+                  <li>
+                    <%= link_to :dashboard_messages do %>
+                        <i class="sl sl-icon-envelope-open"></i> <%= t('label.messages') %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to dashboard_profile_path do %>
+                        <i class="sl sl-icon-user"></i>
+                        <%= t('label.my_profile') %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to destroy_user_session_path, :method => 'delete' do %>
+                        <i class="sl sl-icon-power"></i>
+                        <%= t('label.logout') %>
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+          <% else %>
+              <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> <%= t('label.sign_in') %>
+              </a>
+
+          <% end %>
+
+          <%= link_to current_user.try(:property_owner?) ? :new_agent_dashboard_property : new_property_path, class: 'button border with-icon' do %>
+              <i class="sl sl-icon-plus"></i> <%= t('label.add_property') %>
+          <% end %>
+          <%= render 'parts/language_options' %>
+        </div>
+      </div>
+      <!-- Right Side Content / End -->
+
+
+    </div>
+  </div>
+  <!-- Header / End -->
+
+</header>
+<div class="clearfix"></div>
+<!-- Header Container / End -->

@@ -1,0 +1,36 @@
+<!-- Banner
+================================================== -->
+<div class="main-search-container" data-background-image="assets/main-search-background-01.jpg">
+  <div class="main-search-inner">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Find Nearby Attractions</h2>
+          <h4>Expolore top-rated attractions, activities and more</h4>
+          <%= simple_form_for(:search, url: properties_url, method: :get) do |f| %>
+              <div class="main-search-input">
+
+                <div class="main-search-input-item">
+                  <input type="text" placeholder="What are you looking for?" value=""/>
+                </div>
+
+                <div class="main-search-input-item">
+                  <%= f.input :city_id, collection: JSON.parse(City.cached_json).collect { |c| [c['name'], c['id']] }, label: false, input_html: { class: 'chosen-select-deselect' } %>
+                  <!--<a href="#"><i class="fa fa-dot-circle-o"></i></a>-->
+                </div>
+
+                <div class="main-search-input-item">
+                  <%= f.input :space_category_id, collection: JSON.parse(Category.cached_json('space')).collect { |c| [c['name'], c['id']] }, label: false, input_html: { class: 'chosen-select-deselect' } %>
+                </div>
+
+                <button class="button space-search">Search</button>
+
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

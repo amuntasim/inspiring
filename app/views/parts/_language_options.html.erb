@@ -1,0 +1,15 @@
+<div class="user-menu">
+  <div class="user-name">
+    <%= t('translate.'+ I18n.locale.to_s) %>
+  </div>
+  <ul>
+    <% (AVAILABLE_LOCALES - [I18n.locale]).each do |locale| %>
+        <li>
+          <%= link_to(t('translate.'+ locale.to_s), localized_url(locale.to_s)) %>
+        </li>
+    <% end %>
+  </ul>
+</div>
+<script type="text/javascript" charset="utf-8">
+    jQuery.timeago.settings.lang="<%= I18n.locale.to_s %>";
+</script>

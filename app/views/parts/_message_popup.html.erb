@@ -1,0 +1,29 @@
+<div id="send-message-dialog" class="small-dialog zoom-anim-dialog mfp-hide">
+  <%= form_for Message.new, remote: true do |f| %>
+      <%= f.hidden_field :property_id %>
+      <%= f.hidden_field :reservation_id %>
+      <div class="small-dialog-header">
+        <h3><%= t('label.send_message') %></h3>
+
+        <div style="font-size: 16px">
+          <span><b>To :</b></span>
+          <span class="send_to"></span>
+        </div>
+      </div>
+      <div id="message-notification"></div>
+      <div class="message-reply margin-top-0">
+        <%= f.text_area :body, cols: 40, rows: 3 %>
+        <button class="button" type="submit"><%= t('label.send_message') %></button>
+      </div>
+  <% end %>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        $('.send-message').click(function () {
+            $('#message_property_id').val($(this).data('property-id'))
+            $('.send_to').text($(this).data('send-to'))
+            $('#message_reservation_id').val($(this).data('reservation-id'))
+        })
+    })
+</script>

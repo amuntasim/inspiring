@@ -1,0 +1,7 @@
+<% if @message.errors.empty? %>
+$('.messages-area').append('<%=escape_javascript(render partial: 'agent_dashboard/messages/single_message',locals: {message: @message })%>')
+$('form#new_message')[0].reset();
+<% else %>
+$('#message-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {message: @message.errors.full_messages })%>')
+<% end %>
+$('[name="authenticity_token"]').val('<%= form_authenticity_token %>')

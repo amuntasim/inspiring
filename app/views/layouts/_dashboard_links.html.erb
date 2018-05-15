@@ -1,0 +1,62 @@
+<!-- Responsive Navigation Trigger -->
+<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+
+<div class="dashboard-nav">
+  <div class="dashboard-nav-inner">
+
+    <ul data-submenu-title="Main">
+      <li class="<%= active_navigation('dashboard') %>">
+        <%= link_to :dashboard do %>
+            <i class="sl sl-icon-settings"></i> <%= t('label.dashboard') %>
+        <% end %>
+      </li>
+
+      </li>
+      <li class="<%= active_navigation('messages') %>">
+        <%= link_to :dashboard_messages do %>
+            <i class="sl sl-icon-envelope-open"></i> <%= t('label.messages') %>
+            <span class="nav-tag messages">2</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to :dashboard_reservations, class: '' do %>
+            <i class="fa fa-calendar-check-o"></i> <%= t('label.bookings') %>
+        <% end %>
+      </li>
+      <li class="<%= active_navigation('reviews') %>">
+        <%= link_to :dashboard_reviews do %>
+            <i class="sl sl-icon-star"></i> <%= t('label.reviews') %>
+        <% end %>
+      </li>
+      <li class="<%= active_navigation('inspirations') %>">
+        <%= link_to :dashboard_inspirations do %>
+            <i class="sl sl-icon-heart"></i> <%= t('label.inspirations') %>
+        <% end %>
+      </li>
+    </ul>
+
+    <ul data-submenu-title="Listings">
+      <li>
+        <%= link_to :new_agent_dashboard_property do %>
+            <i class="sl sl-icon-plus"></i> <%= t('label.add_property') %>
+            <% end %>
+        </li>
+    </ul>
+
+    <ul data-submenu-title="Account">
+      <li>
+        <%= link_to dashboard_profile_path do %>
+            <i class="sl sl-icon-user"></i>
+            <%= t('label.my_profile') %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to destroy_user_session_path, :method => 'delete' do %>
+            <i class="sl sl-icon-power"></i>
+            <%= t('label.logout') %>
+        <% end %>
+      </li>
+    </ul>
+
+  </div>
+</div>
