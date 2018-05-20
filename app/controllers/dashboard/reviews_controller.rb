@@ -18,7 +18,7 @@ module Dashboard
 
     private
     def review_params
-      params.require(:review).permit(:rating, :comment,:property_id, :space_id)
+      params.require(:review).permit(:rating, :comment,:brand_id, :space_id)
     end
 
     def scoped_items

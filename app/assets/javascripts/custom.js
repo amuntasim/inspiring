@@ -1287,9 +1287,9 @@ function starRating(ratingElem) {
 }
 
 function applyInspirations(inspirationed){
-    $.each(inspirationed, function(i, propertyId){
-        console.log(propertyId);
-        $('.like-icon[property-id='+ propertyId +']').addClass('liked');
+    $.each(inspirationed, function(i, brandId){
+        console.log(brandId);
+        $('.like-icon[brand-id='+ brandId +']').addClass('liked');
     })
 }
 
@@ -1309,7 +1309,7 @@ $(function () {
      $('.inspiration-button').click(function(){
          $.ajax({
              url: '/ud/inspirations',
-             data: {property_id: $(this).attr('property-id')},
+             data: {brand_id: $(this).attr('brand-id')},
              dataType: 'script',
              method: 'POST'
          })

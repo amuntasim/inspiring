@@ -1,6 +1,6 @@
 <div id="send-message-dialog" class="small-dialog zoom-anim-dialog mfp-hide">
   <%= form_for Message.new, remote: true do |f| %>
-      <%= f.hidden_field :property_id %>
+      <%= f.hidden_field :brand_id %>
       <%= f.hidden_field :reservation_id %>
       <div class="small-dialog-header">
         <h3><%= t('label.send_message') %></h3>
@@ -21,7 +21,7 @@
 <script type="text/javascript" charset="utf-8">
     $(function () {
         $('.send-message').click(function () {
-            $('#message_property_id').val($(this).data('property-id'))
+            $('#message_brand_id').val($(this).data('brand-id'))
             $('.send_to').text($(this).data('send-to'))
             $('#message_reservation_id').val($(this).data('reservation-id'))
         })

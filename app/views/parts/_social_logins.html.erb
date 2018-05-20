@@ -1,0 +1,10 @@
+<div class="clearfix"></div>
+<%- if devise_mapping.omniauthable? %>
+    <%- User.omniauth_providers.each do |provider| %>
+        <% c_provider_name = provider.to_s  == 'google_oauth2' ? 'google' : provider %>
+        <%= link_to  omniauth_authorize_path(resource_name, provider), class: "btn btn-default btn-social btn-#{c_provider_name}" do%>
+            <span class="fa fa-<%= c_provider_name %>"></span>
+            Sign in with <%= OmniAuth::Utils.camelize(c_provider_name) %>
+        <% end %><br />
+    <% end -%>
+<% end -%>

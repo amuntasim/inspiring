@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  CATEGORIES = ['space', 'property']
+  CATEGORIES = ['space', 'brand']
 
   validates :name, :presence => true
 

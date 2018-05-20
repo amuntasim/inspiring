@@ -11,7 +11,8 @@
     <ul class="tabs-nav">
       <li class=""><a class="login-tab-link" href="#login-tab"><%= t('label.login') %></a></li>
       <li><a href="#register-tab"><%= t('label.register') %></a></li>
-      <li><a class="hidden forget-password-tab-link" href="#forget-password-tab"><%= t('label.lost_password') %></a></li>
+      <li><a class="hidden forget-password-tab-link" href="#forget-password-tab"><%= t('label.lost_password') %></a>
+      </li>
     </ul>
 
     <div class="tabs-container alt">
@@ -35,17 +36,21 @@
                 <i class="im im-icon-Lock-2"></i>
                 <%= f.password_field :password, autocomplete: "off" %>
               </label>
-									<span class="lost_password">
-										<%= link_to t('label.lost_password'), 'javascript:void(0)', class: 'forget-password-tab' %>
-									</span>
+
             </p>
 
             <div class="form-row">
-              <%= f.submit t('label.login'), class: "button border margin-top-5" %>
+              <div class="pull-left">
+                <div class="checkboxes">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+                <%= f.submit t('label.login'), class: "button border margin-top-5" %>
+              </div>
+              <div class="pull-right text-right">
+                <%= link_to t('label.lost_password'), 'javascript:void(0)', class: 'forget-password-tab' %>
 
-              <div class="checkboxes margin-top-10">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
+                <%= render "parts/social_logins" %>
               </div>
             </div>
         <% end %>
@@ -62,7 +67,7 @@
               <label for="name">
                 <%= t('attributes.name') %>
                 <i class="im im-icon-Male"></i>
-                <%= f.text_field localized_field_name(:name), autofocus: true, autocomplete: t('attributes.name') %>
+                <%= f.text_field :name, autofocus: true, autocomplete: "Name" %>
               </label>
             </p>
 
@@ -74,20 +79,20 @@
               </label>
             </p>
 
-
             <p class="form-row form-row-wide">
               <label for="password">
                 <%= t('attributes.password') %>
                 <i class="im im-icon-Lock-2"></i>
                 <%= f.password_field :password, id: 'registration_password', autocomplete: "off" %>
               </label>
-									<span class="lost_password">
-										<%= link_to t('label.lost_password'), 'javascript:void(0)', class: 'forget-password-tab' %>
-									</span>
             </p>
 
             <div class="form-row">
               <%= f.submit t('label.register'), class: "button border margin-top-5" %>
+              <div class="pull-right text-right">
+
+                <%= render "parts/social_logins" %>
+              </div>
             </div>
         <% end %>
       </div>

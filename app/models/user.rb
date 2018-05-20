@@ -7,7 +7,6 @@ class User < ApplicationRecord
   enum user_type: [NORMAL_USER_TYPE, ADMIN_USER_TYPE]
   attr_accessor :auto_confirm
 
-  include UserRoles
   include Permission::UserAccess
   after_initialize :set_default_role, :if => :new_record?
   before_create :try_auto_confirm
@@ -23,11 +22,20 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers =>  [:facebook, :google_oauth2, :twitter]
 
 
   def name_email
     name || email
+  end
+
+  def self.create_from_provider_data(provider_data)
+    where(provider_name: provider_data.provider, provider_uid: provider_data.uid).first_or_create do | user |
+      user.email = provider_data.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.skip_confirmation!
+    end
   end
 
   private

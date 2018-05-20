@@ -5,7 +5,7 @@ module Dashboard
     end
 
     def create
-      @inspiration = Inspiration.create_or_destroy!(params[:property_id], current_user.id)
+      @inspiration = Inspiration.create_or_destroy!(params[:brand_id], current_user.id)
     end
 
     private

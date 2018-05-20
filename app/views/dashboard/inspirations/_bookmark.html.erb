@@ -1,15 +1,15 @@
-<% property = inspiration.property %>
+<% brand = inspiration.brand %>
 <li>
   <div class="list-box-listing">
     <div class="list-box-listing-img">
-      <%= link_to image_tag(property.main_image_url), property_path(property) %>
+      <%= link_to image_tag(brand.main_image_url), brand_path(brand) %>
     </div>
     <div class="list-box-listing-content">
       <div class="inner">
-        <h3><%= link_to property.name, property_path(property) %></h3>
-        <span><%= property.full_address_formated.html_safe %></span>
-        <div class="star-rating" data-rating="<%= property.avg_rating %>">
-          <div class="rating-counter"><%= review_counts(property) %></div>
+        <h3><%= link_to brand.name, brand_path(brand) %></h3>
+        <span><%= brand.full_address_formated.html_safe %></span>
+        <div class="star-rating" data-rating="<%= brand.avg_rating %>">
+          <div class="rating-counter"><%= review_counts(brand) %></div>
           </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  CATEGORY_FOR = ['space', 'property']
+  CATEGORY_FOR = ['space', 'brand']
 
   validates :name, :presence => true
 

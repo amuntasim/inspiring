@@ -35,7 +35,7 @@ module Messageable
 
   private
   def message_params
-    params.require(:message).permit(:property_id, :reservation_id, :body, :parent_id, :recipient_id)
+    params.require(:message).permit(:brand_id, :reservation_id, :body, :parent_id, :recipient_id)
   end
 
   def set_message

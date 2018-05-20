@@ -1,5 +1,5 @@
-module AgentDashboard
-  class StoriesController < AgentDashboard::BaseController
+module Dashboard
+  class StoriesController < Dashboard::BaseController
     before_action :set_story, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -16,11 +16,11 @@ module AgentDashboard
       respond_to do |format|
         if @story.save
           format.html { redirect_to agent_dashboard_story_url(@story), notice: t('notifications.story_created_successfully') }
-          format.json { render :show, status: :created, location: @story }
+          format.js
         else
-          flash[:alert] = @story.errors.full_messages
+          flash.now[:alert] = @story.errors.full_messages
           format.html { render :new }
-          format.json { render json: @story.errors, status: :unprocessable_entity }
+          format.js
         end
       end
     end
@@ -52,9 +52,8 @@ module AgentDashboard
     end
 
     def story_params
-      params.require(:story).permit(:name, :category_id, :description,
-                                    :address, :latitude, :longitude, :phone, :web, :email,
-                                    :logo, :cover_photo, tag_ids: [])
+      params.require(:story).permit(:title, :category_id, :description,
+                                     :cover_photo, tag_ids: [])
     end
 
     def scoped_items

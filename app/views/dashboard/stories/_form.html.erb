@@ -1,6 +1,6 @@
-<% attached_tag_ids = @property.taggings.map(&:tag_id) %>
-<%= simple_form_for(@property, url: form_url) do |f| %>
-    <%#= @property.errors.inspect %>
+<% attached_tag_ids = @brand.taggings.map(&:tag_id) %>
+<%= simple_form_for(@brand, url: form_url) do |f| %>
+    <%#= @brand.errors.inspect %>
     <div class="row">
       <div class="col-lg-12">
 
@@ -18,7 +18,7 @@
             <div class="row with-forms">
               <div class="col-md-12">
                 <h5><%= t('attributes.name') %>
-                  <i class="tip" data-tip-content="<%= t('label.name_of_your_property') %>"></i></h5>
+                  <i class="tip" data-tip-content="<%= t('label.name_of_your_brand') %>"></i></h5>
                 <%= f.input :name, label: false, class: 'search-field' %>
               </div>
             </div>
@@ -29,7 +29,7 @@
               <!-- Status -->
               <div class="col-md-6">
                 <h5><%= t('attributes.category') %></h5>
-                <%= f.input :category_id, collection: JSON.parse(Category.cached_json('property')).collect { |c| [c['name'], c['id']] }, label: false, input_html: {class: 'chosen-select-no-single'} %>
+                <%= f.input :category_id, collection: JSON.parse(Category.cached_json('brand')).collect { |c| [c['name'], c['id']] }, label: false, input_html: {class: 'chosen-select-no-single'} %>
               </div>
               <!-- Status -->
 
@@ -72,7 +72,7 @@
               <div class="col-md-6"></div>
               <div class="col-md-12">
                 <h5><%= t('label.select_location') %></h5>
-                <%= f.gmap_coordinate_picker zoom_level: 9, api_key: GOOGLE_API_KEY, map_width: '100%', map_handler: 'propertyMapObj' %>
+                <%= f.gmap_coordinate_picker zoom_level: 9, api_key: GOOGLE_API_KEY, map_width: '100%', map_handler: 'brandMapObj' %>
               </div>
             </div>
             <!-- Row / End -->
@@ -90,7 +90,7 @@
 
             <!-- Dropzone -->
             <div class="submit-section">
-              <div id="property-file-upload" class="dropzone">
+              <div id="brand-file-upload" class="dropzone">
 
               </div>
             </div>
@@ -142,9 +142,9 @@
             <h5 class="margin-top-30 margin-bottom-10">Amenities <span>(optional)</span></h5>
 
             <div class="checkboxes in-row margin-bottom-20">
-              <% JSON.parse(Tag.cached_json('property')).each do |tag| %>
-                  <%= check_box_tag 'property[tag_ids][]', tag['id'], attached_tag_ids.include?(tag['id']), {id: "property-tag-#{tag['id']}"} %>
-                  <label for="<%= "property-tag-#{tag['id']}" %>"><%= tag['name'] %></label>
+              <% JSON.parse(Tag.cached_json('brand')).each do |tag| %>
+                  <%= check_box_tag 'brand[tag_ids][]', tag['id'], attached_tag_ids.include?(tag['id']), {id: "brand-tag-#{tag['id']}"} %>
+                  <label for="<%= "brand-tag-#{tag['id']}" %>"><%= tag['name'] %></label>
               <% end %>
             </div>
             <!-- Checkboxes / End -->
@@ -163,15 +163,15 @@
 
 <script type="text/javascript" charset="utf-8">
     Dropzone.autoDiscover = false;
-    var propertyMapObj = propertyMapObj || {};
+    var brandMapObj = brandMapObj || {};
 
     $(function () {
-                $("div#property-file-upload").dropzone({
+                $("div#brand-file-upload").dropzone({
                     url: "/ad/uploads",
                     addRemoveLinks: true,
                     paramName: "upload[image]",
                     init: function () {
-                        <% @property.images.each do |image| %>
+                        <% @brand.images.each do |image| %>
                         var mockFile = {
                             name: "<%= image.image_file_name %>",
                             size: <%= image.image_file_size %>,
@@ -191,7 +191,7 @@
                         <% end %>
                     },
                     success: function (file, response) {
-                        $('<input id="uploaded_image_' + response.file_id + '" value="' + response.file_id + '" name="property[tmp_image_ids][]">').attr('type', 'hidden').appendTo('div#property-file-upload');
+                        $('<input id="uploaded_image_' + response.file_id + '" value="' + response.file_id + '" name="brand[tmp_image_ids][]">').attr('type', 'hidden').appendTo('div#brand-file-upload');
                         $(file.previewTemplate).find('.dz-remove').attr('id', response.file_id);
                         // add the dz-success class (the green tick sign)
                         $(file.previewElement).addClass("dz-success");
@@ -215,12 +215,12 @@
             }
     )
 
-    $(document).on('change', '#property_city_id', function () {
+    $(document).on('change', '#brand_city_id', function () {
         var selectedOption = $(this).find(":selected");
 
         if (selectedOption && selectedOption.attr('lat')) {
             try {
-                propertyMapObj.setCenter(new google.maps.LatLng(selectedOption.attr('lat'), selectedOption.attr('long')))
+                brandMapObj.setCenter(new google.maps.LatLng(selectedOption.attr('lat'), selectedOption.attr('long')))
             }
             catch (e) {
                 console.log(e);

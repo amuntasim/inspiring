@@ -1,20 +1,11 @@
-<!-- Header Container
-================================================== -->
 <header id="header-container" class="<%= @header_classes %>">
 
-  <!-- Header -->
   <div id="header">
     <div class="container">
-
-      <!-- Left Side Content -->
       <div class="left-side">
-
-        <!-- Logo -->
         <div id="logo">
           <%= link_to image_tag('logo.png'), root_path %>
         </div>
-
-        <!-- Mobile Navigation -->
         <div class="mmenu-trigger">
           <button class="hamburger hamburger--collapse" type="button">
 						<span class="hamburger-box">
@@ -24,16 +15,12 @@
         </div>
 
       </div>
-      <!-- Left Side Content / End -->
-
-
-      <!-- Right Side Content / End -->
       <div class="right-side">
         <div class="header-widget">
           <% if current_user %>
               <!-- User Menu -->
               <div class="user-menu">
-                <div class="user-name"><span><%= image_tag current_user.avatar.url(:thumb) %></span>
+                <div class="user-name"><span><%= '' %></span>
                   <%= t('label.my_account') %>
                 </div>
                 <ul>
@@ -42,13 +29,7 @@
                         <i class="sl sl-icon-settings"></i> <%= t('label.dashboard') %>
                     <% end %>
                   </li>
-                  <% if current_user.property_owner? %>
-                      <li>
-                        <%= link_to agent_dashbord_path do %>
-                            <i class="sl sl-icon-settings"></i> <%= t('label.property_owner_dashboard') %>
-                        <% end %>
-                      </li>
-                  <% end %>
+
                   <li>
                     <%= link_to :dashboard_messages do %>
                         <i class="sl sl-icon-envelope-open"></i> <%= t('label.messages') %>
@@ -73,20 +54,10 @@
               </a>
 
           <% end %>
-
-          <%= link_to current_user.try(:property_owner?) ? :new_agent_dashboard_property : new_property_path, class: 'button border with-icon' do %>
-              <i class="sl sl-icon-plus"></i> <%= t('label.add_property') %>
-          <% end %>
-          <%= render 'parts/language_options' %>
         </div>
       </div>
-      <!-- Right Side Content / End -->
-
 
     </div>
   </div>
-  <!-- Header / End -->
-
 </header>
 <div class="clearfix"></div>
-<!-- Header Container / End -->

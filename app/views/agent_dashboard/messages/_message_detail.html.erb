@@ -4,8 +4,8 @@
 
 <!-- Reply Area -->
 <div class="clearfix"></div>
-<%= form_for Message.new(base_message.attributes.slice('property_id', 'reservation_id').merge(parent_id: base_message.id, recipient_id: base_message.user_id)), url: form_url, remote: true do |f| %>
-    <%= f.hidden_field :property_id %>
+<%= form_for Message.new(base_message.attributes.slice('brand_id', 'reservation_id').merge(parent_id: base_message.id, recipient_id: base_message.user_id)), url: form_url, remote: true do |f| %>
+    <%= f.hidden_field :brand_id %>
     <%= f.hidden_field :reservation_id %>
     <%= f.hidden_field :parent_id %>
     <%= f.hidden_field :recipient_id %>

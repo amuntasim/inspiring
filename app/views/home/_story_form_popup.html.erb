@@ -1,0 +1,32 @@
+<div class="story-form-popup">
+  <%= image_tag user_avatar_image(current_user, :thumb), class: 'avatar size32' %>
+
+  <a href="#story-form-dialog" class="story-editable popup-with-zoom-anim" contenteditable="true">What's your story?</a>
+</div>
+
+<div id="story-form-dialog" class="small-dialog zoom-anim-dialog mfp-hide">
+  <%= form_for :story, url: dashboard_stories_path, multipart: true, remote: true, html: { id: 'story_form' } do |f| %>
+      <div class="small-dialog-header">
+        <%= image_tag user_avatar_image(current_user, :thumb), class: 'avatar size32' %>
+        <span class="header-title">Your story</span>
+      </div>
+      <div id="story-notification"></div>
+      <div class="margin-top-0">
+        <%= f.text_area :description, cols: 40, rows: 3 %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-left">
+              <div class="photoUpload">
+                <span><i class="fa fa-upload"></i> Upload Photo</span>
+                <%= f.file_field :cover_photo, class: 'upload' %>
+              </div>
+            </div>
+            <div class="pull-right">
+              <button class="button btn btn-small" type="submit">Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+

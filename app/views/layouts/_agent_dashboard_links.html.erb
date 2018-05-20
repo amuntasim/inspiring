@@ -19,32 +19,23 @@
             <span class="nav-tag messages">2</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to :agent_dashboard_reservations, class: '' do %>
-            <i class="fa fa-calendar-check-o"></i> <%= t('label.bookings') %>
-        <% end %>
-      </li>
     </ul>
 
     <ul data-submenu-title="Listings">
       <li class="<%= active_navigation('properties') %>">
-        <%= link_to :agent_dashboard_properties do %>
+        <%= link_to :agent_dashboard_brands do %>
             <i class="sl sl-icon-layers"></i> <%= t('label.my_properties') %>
         <% end %>
       </li>
-      <li class="<%= active_navigation('spaces') %>">
-        <%= link_to :agent_dashboard_spaces do %>
-            <i class="sl sl-icon-layers"></i> <%= t('label.my_spaces') %>
-        <% end %>
-      </li>
+
       <li class="<%= active_navigation('reviews') %>">
         <%= link_to :agent_dashboard_reviews do %>
             <i class="sl sl-icon-star"></i> <%= t('label.reviews') %>
         <% end %>
       </li>
       <li>
-        <%= link_to :new_agent_dashboard_property do %>
-            <i class="sl sl-icon-plus"></i> <%= t('label.add_property') %>
+        <%= link_to :new_agent_dashboard_brand do %>
+            <i class="sl sl-icon-plus"></i> <%= t('label.add_brand') %>
         <% end %>
       </li>
     </ul>

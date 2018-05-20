@@ -1,9 +1,9 @@
-<%= render 'parts/title_breadcrumb', title: @property.name%>
+<%= render 'parts/title_breadcrumb', title: @brand.name%>
 
   <div class="inner">
-    <span><%= @property.address %></span>  <span><%= @property.city.detail.html_safe %></span>
+    <span><%= @brand.address %></span>  <span><%= @brand.city.detail.html_safe %></span>
   </div>
 
-<%= link_to  edit_agent_dashboard_property_path(@property), class: 'button gray' do%>
+<%= link_to  edit_agent_dashboard_brand_path(@brand), class: 'button gray' do%>
     <i class="sl sl-icon-note"></i> Edit
 <% end %>

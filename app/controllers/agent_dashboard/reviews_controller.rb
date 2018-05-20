@@ -6,7 +6,7 @@ module AgentDashboard
 
     private
     def scoped_items
-      Review.where(property_id: Story.manageable_property_ids(current_user.id))
+      Review.where(brand_id: Story.manageable_brand_ids(current_user.id))
     end
   end
 end

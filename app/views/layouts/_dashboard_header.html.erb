@@ -33,7 +33,7 @@
           <% if current_user %>
               <!-- User Menu -->
               <div class="user-menu">
-                <div class="user-name"><span><%= image_tag current_user.avatar.url(:thumb) %></span>
+                <div class="user-name"><span><%= image_tag user_avatar_image(current_user, :thumb) %></span>
                   <%= t('label.my_account') %>
                 </div>
                 <ul>
@@ -42,13 +42,6 @@
                         <i class="sl sl-icon-settings"></i> <%= t('label.dashboard') %>
                     <% end %>
                   </li>
-                  <% if current_user.property_owner? %>
-                      <li>
-                        <%= link_to agent_dashbord_path do %>
-                            <i class="sl sl-icon-settings"></i> <%= t('label.property_owner_dashboard') %>
-                        <% end %>
-                      </li>
-                  <% end %>
                   <li>
                     <%= link_to :dashboard_messages do %>
                         <i class="sl sl-icon-envelope-open"></i> <%= t('label.messages') %>
@@ -71,13 +64,7 @@
           <% else %>
               <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> <%= t('label.sign_in') %>
               </a>
-
-          <% end %>
-
-          <%= link_to current_user.try(:property_owner?) ? :new_agent_dashboard_property : new_property_path, class: 'button border with-icon' do %>
-              <i class="sl sl-icon-plus"></i> <%= t('label.add_property') %>
-          <% end %>
-          <%= render 'parts/language_options' %>
+\          <% end %>
         </div>
       </div>
       <!-- Right Side Content / End -->

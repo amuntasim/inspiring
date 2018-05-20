@@ -2,15 +2,15 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= content_for?(:title) ? yield(:title) : "Space Match" %></title>
-  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Space Match" %>">
+  <title><%= content_for?(:title) ? yield(:title) : "Inspiring Bangladesh" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Inspiring Bangladesh" %>">
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= stylesheet_link_tag 'colors/main', media: 'all', 'data-turbolinks-track' => 'reload', id: 'colors' %>
   <script></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
   <%= csrf_meta_tags %>
 </head>
-<body class="<%= ltr_rtl %>">
+<body class="">
 <div id="wrapper">
   <%= render 'layouts/header' %>
   <%= render 'parts/common_popups' %>

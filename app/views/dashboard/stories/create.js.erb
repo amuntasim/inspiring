@@ -1,0 +1,7 @@
+<% if @story.errors.empty? %>
+$('#story-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {type: 'notice', message: "Story added!"})%>')
+$('form#story_form')[0].reset();
+<% else %>
+$('#story-notification').html('<%=escape_javascript(render partial: 'parts/notification',locals: {message: @story.errors.full_messages.join(" ") })%>')
+<% end %>
+$('[name="authenticity_token"]').val('<%= form_authenticity_token %>')

@@ -182,6 +182,8 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.string "phone"
     t.text "about"
     t.integer "user_type"
+    t.string "provider_name"
+    t.string "provider_uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stories_count", default: 0

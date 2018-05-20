@@ -1,4 +1,4 @@
-<% property_id ||= nil %>
+<% brand_id ||= nil %>
 <% space_id ||= nil %>
 <div class="add-review-box">
 
@@ -6,8 +6,8 @@
   <h3 class="listing-desc-headline margin-bottom-20"><%= t('label.add_review') %></h3>
 
   <span class="leave-rating-title"><%= t('label.your_rating') %></span>
-  <%= form_for Review.new(property_id: property_id, space_id: space_id), url: dashboard_reviews_path, remote: true do |f| %>
-      <%= f.hidden_field :property_id %>
+  <%= form_for Review.new(brand_id: brand_id, space_id: space_id), url: dashboard_reviews_path, remote: true do |f| %>
+      <%= f.hidden_field :brand_id %>
       <%= f.hidden_field :space_id %>
       <div class="row">
         <div class="col-md-6">

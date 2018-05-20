@@ -7,11 +7,11 @@ module AgentDashboard
     end
 
     def new
-      @brand = Story.new
+      @brand = Brand.new
     end
 
     def create
-      @brand         = Story.new(brand_params)
+      @brand         = Brand.new(brand_params)
       @brand.user_id = current_user.id
       respond_to do |format|
         if @brand.save
@@ -58,7 +58,7 @@ module AgentDashboard
     end
 
     def scoped_items
-      Story.where(user_id: current_user.id)
+      Brand.where(user_id: current_user.id)
     end
   end
 end

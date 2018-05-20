@@ -9,29 +9,29 @@ class SearchFacade
     @base_properties ||= Story.where(prepare_filters)
   end
 
-  def property_ids
-    @property_ids ||= base_properties.pluck(:id)
+  def brand_ids
+    @brand_ids ||= base_properties.pluck(:id)
   end
 
   def filtered_space_ids
-    @filtered_space_ids ||= Space.where(property_id: @filtered_property_ids).pluck(:id)
+    @filtered_space_ids ||= Space.where(brand_id: @filtered_brand_ids).pluck(:id)
   end
 
-  def filtered_property_ids
-    @filtered_property_ids = property_ids
+  def filtered_brand_ids
+    @filtered_brand_ids = brand_ids
     apply_space_filters!
-    apply_property_tags!
-    @filtered_property_ids
+    apply_brand_tags!
+    @filtered_brand_ids
   end
 
-  def apply_property_tags!
-    if @search.property_tag_ids.any?
-      # raise    @search.property_tag_ids.inspect
-      @filtered_property_ids = Tagging.for_properties.where(taggable_id: @filtered_property_ids,
-                                                            tag_id:      @search.property_tag_ids
+  def apply_brand_tags!
+    if @search.brand_tag_ids.any?
+      # raise    @search.brand_tag_ids.inspect
+      @filtered_brand_ids = Tagging.for_properties.where(taggable_id: @filtered_brand_ids,
+                                                            tag_id:      @search.brand_tag_ids
       ).inject({}) { |hash, tagging|
         hash[tagging.taggable_id] ||= []; hash[tagging.taggable_id] << tagging.tag_id;hash
-      }.select { |k, v| v.size >=  @search.property_tag_ids.size}.keys.uniq
+      }.select { |k, v| v.size >=  @search.brand_tag_ids.size}.keys.uniq
     end
   end
 
@@ -55,15 +55,15 @@ class SearchFacade
     if @search.space_category_id.present?
       conditions = { category_id: @search.space_category_id }
       conditions.merge!(id: @filtered_space_ids) if @filtered_space_ids
-      @filtered_property_ids = Space.where(conditions).pluck(:property_id).uniq
+      @filtered_brand_ids = Space.where(conditions).pluck(:brand_id).uniq
     elsif @filtered_space_ids
-      @filtered_property_ids = Space.where(id: @filtered_space_ids).pluck(:property_id).uniq
+      @filtered_brand_ids = Space.where(id: @filtered_space_ids).pluck(:brand_id).uniq
     end
 
   end
 
   def filtered_properties
-    base_properties.where(id: filtered_property_ids).includes(:translations, :images, category: :translations, city: [:translations, country: :translations])
+    base_properties.where(id: filtered_brand_ids).includes(:translations, :images, category: :translations, city: [:translations, country: :translations])
   end
 
   def properties
