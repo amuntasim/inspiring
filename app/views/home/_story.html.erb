@@ -1,0 +1,12 @@
+<div class="story-item story-item-popup UserSmallListItem account-summary" data-story-path="<%= story_path(story) %>">
+  <div class="content">
+    <% if story.brand_id %>
+        <%= render "stories/story_brand_head", brand: story.brand %>
+    <% else %>
+        <%= render "stories/story_user_head", user: story.user %>
+    <% end %>
+    <p class="story-content">
+      <%= story.description %>
+    </p>
+  </div>
+</div>

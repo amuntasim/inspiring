@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
-  CATEGORY_FOR = ['space', 'brand']
+  CATEGORY_FOR = ['story', 'brand']
 
-  validates :name, :presence => true
+  validates :name, presence: true, uniqueness: true
 
   after_save :reset_cache
   before_destroy :reset_cache

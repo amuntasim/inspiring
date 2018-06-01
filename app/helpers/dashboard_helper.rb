@@ -20,4 +20,27 @@ module DashboardHelper
     variant = { medium: { resize: "300x300" }, thumb: { resize: "100x100" } }
     user.avatar.attached? ? user.avatar.variant(variant[type]) : image_path("#{type}/avatar.jpg")
   end
+
+  def user_cover_photo(user, type=:medium)
+    variant = { medium: { resize: "300x300" }, thumb: { resize: "100x100" } }
+    user.cover_photo.attached? ? user.cover_photo : image_path("#{type}/sample_cover_photo.jpg")
+  end
+
+  def brand_logo_image(brand, type=:medium)
+    variant = { medium: { resize: "300x300" }, thumb: { resize: "100x100" } }
+    brand.logo.attached? ? brand.logo.variant(variant[type]) : image_path("#{type}/brand_logo.png")
+  end
+
+  def brand_cover_photo(brand, type=:medium)
+    variant = { medium: { resize: "300x300" }, thumb: { resize: "100x100" } }
+    brand.cover_photo.attached? ? brand.cover_photo : image_path("#{type}/brand_image.jpg")
+  end
+
+  def user_profile_link(user)
+    user.persisted? ? user_profile_path(user.handle) : ""
+  end
+
+  def brand_profile_link(brand)
+    brand.persisted? ? brand_profile_path(brand.handle) : ""
+  end
 end

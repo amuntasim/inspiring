@@ -149,6 +149,7 @@ input.button.fullwidth {
 }
 
 .story-item {
+  cursor: pointer;
   background: white;
   padding: 10px;
   border-bottom: 1px solid $custom_bg_color;
@@ -159,10 +160,32 @@ input.button.fullwidth {
 
   p.story-content {
     margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+  &:hover {
+    background: #f5f8fa;
   }
 }
 
-.story-form-popup {
+#story-detail-content {
+  .story-item {
+    cursor: default;
+    background: none;
+    padding: 15px;
+    border-bottom: none;
+  }
+  .username {
+    display: block;
+    margin-top: 5px;
+  }
+  .story-content {
+    margin-top: 20px;
+  }
+}
+
+.user-input-section {
   background: darken($custom_bg_color, 5%);
   padding: 15px;
   margin-bottom: 10px;
@@ -201,9 +224,9 @@ input.button.fullwidth {
     cursor: pointer;
     line-height: 20px;
     &:hover {
-    color: #fff;
-    background-color: #495d7f;
-  }
+      color: #fff;
+      background-color: #495d7f;
+    }
   }
 }
 
@@ -219,6 +242,66 @@ input.button.fullwidth {
 }
 
 .btn-small {
-  padding: 5px 25px!important;
+  padding: 5px 25px !important;
 }
 
+.user-stats {
+  line-height: 24px;
+}
+
+.loading_info {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  width: 32px;
+  height: 32px;
+  img {
+    width: 32px;
+    height: 32px;
+  }
+  i {
+    font-size: 48px;
+    font-weight: bold;
+  }
+}
+
+.fa-spin-custom {
+  -webkit-animation: spin 1000ms infinite linear;
+  animation: spin 1000ms infinite linear;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.DashboardProfileCard-bg img {
+  width: 100%;
+  height: 100%;
+}
+
+.min-height-100 {
+  min-height: 100px;
+}
+
+.comments-section {
+  position: relative;
+}

@@ -147,7 +147,7 @@ en:
     upload_photo: Upload Photo
     inspirations: Inspirations
     inspiration_this: Inspiration this place
-    total_inspirations: "%{total} people inspirationed this place"
+    total_inspirations: "%{total} inspired!"
     copyright: Spacematch. All rights recerved.
     helpful_links: Helpful Links
 

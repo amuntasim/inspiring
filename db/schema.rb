@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.integer "user_id"
     t.integer "category_id"
     t.string "name"
+    t.string "handle"
     t.string "address"
     t.string "phone"
     t.string "email"
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.float "latitude"
     t.float "longitude"
     t.datetime "deleted_at"
+    t.integer "stories_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reviews_count", default: 0
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.integer "inspirations_count", default: 0
     t.index ["category_id"], name: "index_brands_on_category_id"
     t.index ["deleted_at"], name: "index_brands_on_deleted_at"
+    t.index ["handle"], name: "index_brands_on_handle", unique: true
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -179,6 +182,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "name"
+    t.string "handle"
     t.string "phone"
     t.text "about"
     t.integer "user_type"
@@ -189,6 +193,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.integer "stories_count", default: 0
     t.integer "inspirations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["handle"], name: "index_users_on_handle", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

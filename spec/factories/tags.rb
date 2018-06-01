@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :tag do
-    category "MyString"
+    sequence(:name) { |n| "#{Faker::Lorem.word}#{n}" }
+    category "story"
   end
 end

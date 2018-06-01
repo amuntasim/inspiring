@@ -1,6 +1,6 @@
 class Inspiration < ApplicationRecord
-  belongs_to :user, counter_cache: true
-  belongs_to :brand, counter_cache: true, optional: true
+  belongs_to :user
+  belongs_to :inspiring, polymorphic: true, counter_cache: true, optional: true
   validates :user_id, presence: true
   validates :inspiring_id, presence: true, uniqueness: { scope: [:user_id, :inspiring_type], message: I18n.t('notifications.already_inspired') }
 
@@ -13,7 +13,7 @@ class Inspiration < ApplicationRecord
     end
   end
 
-  def self.create_or_destroy!(inspiring,  user_id)
+  def self.create_or_destroy!(inspiring, user_id)
     inspiration = inspiring.inspirations.where(user_id: user_id).last
     if inspiration
       inspiration.destroy!

@@ -1,5 +1,11 @@
 class HomeController < ApplicationController
   def index
-     render current_user ? :user_index : :index
+    fetch_stories
+  end
+
+  private
+
+  def fetch_stories
+    @stories = Story.order("created_at desc").page(params[:page]).per_page(10)
   end
 end

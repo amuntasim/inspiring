@@ -1,0 +1,8 @@
+<%= link_to user_profile_link(user), class: "account-group user-thumb" do %>
+    <%= image_tag user_avatar_image(user, :thumb), class: "avatar" %>
+    <span class="account-group-inner" data-user-id="15067554">
+        <strong class="fullname"><%= user.name %></strong>
+      <span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span>
+      <span class="username u-dir u-textTruncate" dir="ltr">@<b><%= user.handle %></b></span>
+      </span>
+<% end %>

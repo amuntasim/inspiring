@@ -3,11 +3,13 @@ FactoryBot.define do
     user_id 1
     latitude 1
     longitude 1
-    name "MyString"
+    sequence(:name) { |n| "#{ Faker::Lorem.words(2).join(' ')}#{n}" }
+    address  Faker::Address.full_address
+    description  Faker::Lorem.paragraphs
     sequence(:email) do |n|
       "#{n}#{Faker::Internet.email}"
     end
-    web "MyString"
-    phone "MyString"
+    web Faker::Internet.domain_name
+    phone Faker::PhoneNumber.cell_phone
   end
 end

@@ -4,6 +4,7 @@ class CreateBrands < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.integer :category_id
       t.string :name
+      t.string :handle
       t.string :address
       t.string :phone
       t.string :email
@@ -12,10 +13,12 @@ class CreateBrands < ActiveRecord::Migration[5.2]
       t.float :latitude
       t.float :longitude
       t.datetime :deleted_at
+      t.integer :stories_count, default: 0
       t.timestamps
     end
 
     add_index :brands, :deleted_at
     add_index :brands, :category_id
+    add_index :brands, :handle, unique: true
   end
 end

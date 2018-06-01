@@ -1,22 +1,22 @@
 <div class="user-area user-area-left">
   <div class="DashboardProfileCard  module">
-    <%= link_to user_profile_link(user), class: "DashboardProfileCard-bg u-bgUserColor u-block" do %>
-        <%= image_tag user_cover_photo(user, :thumb), class: '' %>
+    <%= link_to brand_profile_link(brand), class: "DashboardProfileCard-bg u-bgUserColor u-block" do %>
+        <%= image_tag brand_cover_photo(brand, :thumb), class: '' %>
     <% end %>
 
     <div class="DashboardProfileCard-content">
-      <%= link_to user_profile_link(user), class: "DashboardProfileCard-avatarLink u-inlineBlock", title: user.name do %>
-          <%= image_tag user_avatar_image(user, :thumb), class: 'DashboardProfileCard-avatarImage js-action-profile-avatar' %>
+      <%= link_to brand_profile_link(brand), class: "DashboardProfileCard-avatarLink u-inlineBlock", title: brand.name do %>
+          <%= image_tag brand_logo_image(brand, :thumb), class: 'DashboardProfileCard-avatarImage js-action-profile-avatar' %>
       <% end %>
 
       <div class="DashboardProfileCard-userFields account-group">
         <div class="DashboardProfileCard-name u-textTruncate">
-          <%= link_to user.name, user_profile_link(user), class: "u-textInheritColor js-nav", title: user.name %>
+          <%= link_to brand.name, brand_profile_link(brand), class: "u-textInheritColor js-nav", title: brand.name %>
           <span class="UserBadges"></span>
         </div>
         <span class="DashboardProfileCard-screenname u-inlineBlock u-dir" dir="ltr">
-          <%= link_to user_profile_link(user), class: "DashboardProfileCard-screennameLink u-linkComplex u-linkClean js-nav", title: user.name do %>
-            <span class="username u-dir" dir="ltr">@<b class="u-linkComplex-target"><%= user.handle %></b></span>
+          <%= link_to brand_profile_link(brand), class: "DashboardProfileCard-screennameLink u-linkComplex u-linkClean js-nav", title: brand.name do %>
+            <span class="username u-dir" dir="ltr">@<b class="u-linkComplex-target"><%= brand.handle %></b></span>
           <% end %>
         </span>
       </div>
@@ -25,7 +25,7 @@
         <div class="col-md-12" style="margin-top: 10px">
           <div class="col-md-4">
             <strong>Stories</strong>
-            <span><%= user.stories_count %></span>
+            <span><%= brand.stories_count %></span>
           </div>
           <div class="col-md-4">
             <strong>Followers</strong>

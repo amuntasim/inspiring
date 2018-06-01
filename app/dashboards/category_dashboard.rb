@@ -11,8 +11,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     for: Field::Select.with_options(collection: Category::CATEGORY_FOR),
-    image: Field::Paperclip,
-    image_file_name: Field::String,
+    image: AttachmentField,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -26,7 +25,6 @@ class CategoryDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :for,
-    :image_file_name,
     :created_at,
     :updated_at,
   ].freeze

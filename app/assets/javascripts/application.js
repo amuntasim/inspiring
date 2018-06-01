@@ -29,7 +29,7 @@
 //= require dropzone
 //= require datedropper
 //= require timedropper
-//= require search
+//= require story
 //= require timeago
 //= require timeago.ar
 //= require_self

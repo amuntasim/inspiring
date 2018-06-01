@@ -1,0 +1,24 @@
+<div class="story-item UserSmallListItem account-summary" data-story-path="<%= story_path(story) %>">
+  <div class="content">
+    <% if story.brand_id %>
+        <%= render "story_brand_head", brand: story.brand %>
+    <% else %>
+        <%= render "story_user_head", user: story.user %>
+    <% end %>
+
+  </div>
+  <p class="story-content">
+    <%= story.description %>
+  </p>
+</div>
+
+<%= render "/parts/shareable", item: story, url: story_url(story) %>
+<div class="clearfix"></div>
+
+<div class="comments-section">
+  <div class="user-input-section">
+    <%= image_tag user_avatar_image(current_user, :thumb), class: 'avatar size32' %>
+    <a href="#story-form-dialog" class="story-editable popup-with-zoom-anim" contenteditable="true">What's your
+      story?</a>
+  </div>
+</div>

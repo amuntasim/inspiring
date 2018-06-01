@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: :dashboard
   get '/agent_dashbord', to: 'dashboard#agent_index', as: :agent_dashbord
+  get '/u/:handle', to: 'users#home', as: :user_profile
+  get '/b/:handle', to: 'brands#home', as: :brand_profile
 
   devise_for :users, controllers: { sessions:      'users/sessions',
                                     registrations: 'users/registrations',
@@ -43,5 +45,6 @@ Rails.application.routes.draw do
                                     omniauth_callbacks: 'users/omniauth'
                    }
   resources :users, only: [:show]
+  resources :stories, only: [:show]
   root to: 'home#index'
 end

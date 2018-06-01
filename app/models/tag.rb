@@ -1,7 +1,7 @@
 class Tag < ApplicationRecord
-  CATEGORIES = ['space', 'brand']
+  CATEGORIES = ['story', 'brand']
 
-  validates :name, :presence => true
+  validates :name, presence: true, uniqueness: true
 
   after_save :reset_cache
   before_destroy :reset_cache

@@ -2,6 +2,7 @@ class Story < ApplicationRecord
   acts_as_paranoid
   has_one_attached :cover_photo
 
+  belongs_to :brand, optional: true, counter_cache: true
   belongs_to :user, counter_cache: true
   belongs_to :category, optional: true, counter_cache: :items_count
 

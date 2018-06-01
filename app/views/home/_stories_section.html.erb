@@ -1,0 +1,26 @@
+<div id="stories_container">
+  <%= render partial: "home/story", collection: @stories %>
+</div>
+
+<div id="infinite-scrolling">
+  <%= will_paginate @stories%>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    (function() {
+        jQuery(function() {
+            if ($('#infinite-scrolling').size() > 0) {
+                $(window).on('scroll', function() {
+                    var more_posts_url;
+                    more_posts_url = $('.pagination a[rel=next]').attr('href');
+                    if (more_posts_url && $(window).scrollTop() > $(document).height() - $(window).height() - 60) {
+                        $('.pagination').html($('.loading_section').html());
+                        $.getScript(more_posts_url);
+                    }
+                });
+            }
+            $(window).scroll();
+        });
+
+    }).call(this);
+</script>
