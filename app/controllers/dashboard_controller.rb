@@ -1,12 +1,8 @@
 class DashboardController < ApplicationController
-
+  layout "dashboard"
   before_action :prepare_dashboard
-  def index
-     render   layout: 'dashboard'
-  end
 
-  def agent_index
-    render   layout: 'agent_dashboard'
+  def index
   end
 
   private

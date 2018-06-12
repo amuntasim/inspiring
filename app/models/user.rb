@@ -1,6 +1,8 @@
 class User < ApplicationRecord
-  NORMAL_USER_TYPE = 'user'
-  ADMIN_USER_TYPE  = 'admin'
+  NORMAL_USER_TYPE   = 'user'
+  ADMIN_USER_TYPE    = 'admin'
+  VALID_HANDLE_REGEX = /\A[\w+\-.]*.{4,}\z/i
+  RESERVED_HANDLES   = %w(api admin dashboard users)
   has_one_attached :avatar
   has_one_attached :cover_photo
 
@@ -10,6 +12,12 @@ class User < ApplicationRecord
   include Permission::UserAccess
   before_validation :set_default_role, :set_handle, :if => :new_record?
   before_create :try_auto_confirm
+
+  validates :name, presence: true
+  validates :handle, presence: true, uniqueness: true, format: {
+                       with: VALID_HANDLE_REGEX , message: "Invalid!, use atleast 4 characters alphanumeric"
+                   }, exclusion: { in: RESERVED_HANDLES,
+                                   message: "%{value} is reserved." }
 
   has_many :stories
   has_many :social_links, as: :social_linkable

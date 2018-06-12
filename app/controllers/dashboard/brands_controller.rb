@@ -1,9 +1,11 @@
-module AgentDashboard
-  class BrandsController < AgentDashboard::BaseController
+module Dashboard
+  class BrandsController < Dashboard::BaseController
     before_action :set_brand, only: [:show, :edit, :update, :destroy]
 
     def index
-      @brands = scoped_items.order('created_at DESC')
+      if current_user.brand_id
+        redirect_to dashboard_brand_path(id: current_user.brand_id)
+      end
     end
 
     def new
@@ -12,10 +14,10 @@ module AgentDashboard
 
     def create
       @brand         = Brand.new(brand_params)
-      @brand.user_id = current_user.id
       respond_to do |format|
         if @brand.save
-          format.html { redirect_to agent_dashboard_brand_url(@brand), notice: t('notifications.brand_created_successfully') }
+          current_user.update_column(:brand_id, @brand.id)
+          format.html { redirect_to dashboard_brand_url(@brand), notice: 'Brand created successfully' }
           format.json { render :show, status: :created, location: @brand }
         else
           flash[:alert] = @brand.errors.full_messages
@@ -28,7 +30,7 @@ module AgentDashboard
     def update
       respond_to do |format|
         if @brand.update(brand_params)
-          format.html { redirect_to agent_dashboard_brand_url(@brand), notice: t('notifications.brand_updated_successfully') }
+          format.html { redirect_to dashboard_brand_url(@brand), notice: 'Brand updated successfully' }
           format.json { render :show, status: :ok, location: @brand }
         else
           flash[:alert] = @brand.errors.full_messages
@@ -41,24 +43,20 @@ module AgentDashboard
     def destroy
       @brand.destroy
       respond_to do |format|
-        format.html { redirect_to agent_dashboard_brands_url, notice: 'Brand was successfully destroyed.' }
+        format.html { redirect_to dashboard_brands_url, notice: 'Brand was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
 
     private
     def set_brand
-      @brand= scoped_items.find(params[:id])
+      @brand= Brand.find(current_user.brand_id)
     end
 
     def brand_params
       params.require(:brand).permit(:name, :category_id, :description,
                                     :address, :latitude, :longitude, :phone, :web, :email,
                                     :logo, :cover_photo, tag_ids: [])
-    end
-
-    def scoped_items
-      Brand.where(user_id: current_user.id)
     end
   end
 end

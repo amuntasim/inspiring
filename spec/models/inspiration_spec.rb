@@ -22,7 +22,6 @@ RSpec.describe Inspiration, type: :model do
   context '.create_or_destroy!' do
     before do
       allow_any_instance_of(Inspiration).to receive(:user) { User.new }
-      allow_any_instance_of(Brand).to receive(:user) { User.new }
       allow_any_instance_of(Brand).to receive(:category) { Category.new }
       @brand = create(:brand)
     end

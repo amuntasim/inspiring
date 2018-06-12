@@ -9,8 +9,7 @@ RSpec.describe Review, type: :model do
   context 'create' do
     it 'should update brand ratings' do
       allow_any_instance_of(Brand).to receive(:category) {build_stubbed(:category)}
-      user  = create(:user)
-      brand = create(:brand, user: user)
+      brand = create(:brand)
 
       review = create(:review, rating: 4, reviewable: brand)
       expect(brand.reload.reviews_count).to eq 1

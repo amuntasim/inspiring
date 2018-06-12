@@ -34,10 +34,8 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
   end
 
   create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "category_id"
     t.string "name"
-    t.string "handle"
     t.string "address"
     t.string "phone"
     t.string "email"
@@ -46,7 +44,6 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.float "latitude"
     t.float "longitude"
     t.datetime "deleted_at"
-    t.integer "stories_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reviews_count", default: 0
@@ -54,7 +51,6 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.integer "inspirations_count", default: 0
     t.index ["category_id"], name: "index_brands_on_category_id"
     t.index ["deleted_at"], name: "index_brands_on_deleted_at"
-    t.index ["handle"], name: "index_brands_on_handle", unique: true
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -188,6 +184,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.integer "user_type"
     t.string "provider_name"
     t.string "provider_uid"
+    t.integer "brand_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stories_count", default: 0

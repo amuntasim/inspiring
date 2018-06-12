@@ -15,16 +15,10 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  namespace :agent_dashboard, path: '/ad' do
-    resources :messages
-    resources :brands
-    resources :stories
-    resources :reviews, only: [:index, :show]
-  end
-
   namespace :dashboard, path: '/ud' do
     resources :inspirations, only: [:index, :create, :destroy]
     resources :messages
+    resources :brands
     resources :reviews, only: [:index, :create]
     resources :stories, only: [:index, :create]
     resource :profile do
@@ -35,16 +29,18 @@ Rails.application.routes.draw do
   end
 
   get '/dashboard', to: 'dashboard#index', as: :dashboard
-  get '/agent_dashbord', to: 'dashboard#agent_index', as: :agent_dashbord
-  get '/u/:handle', to: 'users#home', as: :user_profile
-  get '/b/:handle', to: 'brands#home', as: :brand_profile
 
   devise_for :users, controllers: { sessions:      'users/sessions',
                                     registrations: 'users/registrations',
                                     passwords:     'users/passwords',
                                     omniauth_callbacks: 'users/omniauth'
                    }
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    collection do
+      post :varify_handle
+    end
+  end
   resources :stories, only: [:show]
+  get ':handle', to: 'users#home', as: :user_profile
   root to: 'home#index'
 end

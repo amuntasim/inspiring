@@ -10,8 +10,6 @@
             <i class="sl sl-icon-settings"></i> <%= t('label.dashboard') %>
         <% end %>
       </li>
-
-      </li>
       <li class="<%= active_navigation('messages') %>">
         <%= link_to :dashboard_messages do %>
             <i class="sl sl-icon-envelope-open"></i> <%= t('label.messages') %>
@@ -32,10 +30,16 @@
 
     <ul data-submenu-title="Listings">
       <li>
-        <%= link_to :new_agent_dashboard_brand do %>
-            <i class="sl sl-icon-plus"></i> Add Brand
+        <% if current_user.brand_id %>
+            <%= link_to dashboard_brand_path(:id, current_user.brand_id) do %>
+                Brand profile
             <% end %>
-        </li>
+        <% else %>
+            <%= link_to :new_dashboard_brand do %>
+                <i class="sl sl-icon-plus"></i> Add Brand
+            <% end %>
+        <% end %>
+      </li>
     </ul>
 
     <ul data-submenu-title="Account">

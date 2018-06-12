@@ -1,0 +1,9 @@
+<%= render 'parts/title_breadcrumb', title: @brand.name%>
+
+  <div class="inner">
+    <span><%= @brand.address %></span>
+  </div>
+
+<%= link_to  edit_dashboard_brand_path(@brand), class: 'button gray' do%>
+    <i class="sl sl-icon-note"></i> Edit
+<% end %>

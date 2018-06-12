@@ -1,3 +1,4 @@
+<% _resource = resource || User.new %>
 <!-- Sign In Popup -->
 <div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
 
@@ -19,7 +20,7 @@
       <% @form_authenticity_token = form_authenticity_token %>
       <!-- Login -->
       <div class="tab-content" id="login-tab" style="display: none;">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
+        <%= form_for(_resource, as: resource_name, url: session_path(resource_name), remote: true) do |f| %>
             <%= hidden_field_tag :authenticity_token, @form_authenticity_token, id: nil, class: 'authenticity_token' %>
             <div id="login-notification"></div>
             <p class="form-row form-row-wide">
@@ -59,7 +60,7 @@
       <!-- Register -->
       <div class="tab-content" id="register-tab" style="display: none;">
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: 'registration_form' }, remote: true) do |f| %>
+        <%= form_for(_resource, as: resource_name, url: registration_path(resource_name), html: { id: 'registration_form' }, remote: true) do |f| %>
             <%= hidden_field_tag :authenticity_token, @form_authenticity_token, id: nil, class: 'authenticity_token' %>
             <div id="registration-notification"></div>
 
@@ -74,8 +75,16 @@
             <p class="form-row form-row-wide">
               <label for="email">
                 <%= t('attributes.email') %>
-                <i class="im im-icon-Male"></i>
-                <%= f.email_field :email, id: 'registration_email', autofocus: true, autocomplete: t('attributes.email') %>
+                <i class="im im-icon-Email"></i>
+                <%= f.email_field :email, id: 'registration_email',  autocomplete: t('attributes.email') %>
+              </label>
+            </p>
+
+            <p class="form-row form-row-wide">
+              <label for="email">
+                Handle
+                <i class="im ">@</i>  <span class="handle-error orange"></span>
+                <%= f.text_field :handle, id: 'registration_handle'%>
               </label>
             </p>
 
@@ -88,7 +97,7 @@
             </p>
 
             <div class="form-row">
-              <%= f.submit t('label.register'), class: "button border margin-top-5" %>
+              <%= f.submit t('label.register'), class: "register-button button border margin-top-5",  disabled: true%>
               <div class="pull-right text-right">
 
                 <%= render "parts/social_logins" %>
@@ -100,7 +109,7 @@
       <!-- Forget password -->
       <div class="tab-content" id="forget-password-tab" style="display: none;">
 
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { id: 'forget-password-form', method: :post }) do |f| %>
+        <%= form_for(_resource, as: resource_name, url: password_path(resource_name), html: { id: 'forget-password-form', method: :post }) do |f| %>
             <div id="forget-password-notification"></div>
 
             <p class="form-row form-row-wide">

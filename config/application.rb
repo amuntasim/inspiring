@@ -17,3 +17,5 @@ module InspiringBD
     # the framework and any gems in your application.
   end
 end
+
+GOOGLE_API_KEY='AIzaSyDAL1DLk4eS7SDHerkH4vXqzBUY_BP7aZI'

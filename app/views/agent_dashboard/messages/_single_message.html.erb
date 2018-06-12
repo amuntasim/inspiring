@@ -1,7 +1,0 @@
-<div class="message-bubble <%= 'me' if message.user_id == current_user.id %>">
-  <div class="message-avatar">
-    <%= image_tag message.user.avatar.url(:thumb) %>
-  </div>
-  <div class="message-text">
-    <p><%= message.body %></p></div>
-</div>

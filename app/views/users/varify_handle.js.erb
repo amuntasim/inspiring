@@ -1,0 +1,6 @@
+<% if @handle_error %>
+$('.handle-error').html('<%= @handle_error %>');
+<% else %>
+$('.handle-error').html('');
+$('.register-button').attr('disabled', false)
+<% end %>

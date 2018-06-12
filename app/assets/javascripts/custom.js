@@ -1286,10 +1286,10 @@ function starRating(ratingElem) {
 
 }
 
-function applyInspirations(inspirationed){
-    $.each(inspirationed, function(i, brandId){
+function applyInspirations(inspirationed) {
+    $.each(inspirationed, function (i, brandId) {
         console.log(brandId);
-        $('.like-icon[brand-id='+ brandId +']').addClass('liked');
+        $('.like-icon[brand-id=' + brandId + ']').addClass('liked');
     })
 }
 
@@ -1302,18 +1302,39 @@ $(function () {
     $('.sign-in-form .tabs-nav a').click(function () {
         $('.sign-in-popup-header').html($(this).text())
     })
-    $('.sign-in.popup-with-zoom-anim').click(function(){
+    $('.sign-in.popup-with-zoom-anim').click(function () {
         $('a.login-tab-link').trigger('click');
     })
 
-     $('.inspiration-button').click(function(){
-         $.ajax({
-             url: '/ud/inspirations',
-             data: {brand_id: $(this).attr('brand-id')},
-             dataType: 'script',
-             method: 'POST'
-         })
+    $('.inspiration-button').click(function () {
+        $.ajax({
+            url: '/ud/inspirations',
+            data: {brand_id: $(this).attr('brand-id')},
+            dataType: 'script',
+            method: 'POST'
+        })
+    });
+
+    $('#registration_email').keyup(function () {
+        var value = $(this).val();
+        var handle = value.split('@')[0];
+        $('#registration_handle').val(handle);
+    }).blur(function () {
+        validateHandle();
+    });
+
+    $('#registration_email').blur(function () {
+        validateHandle();
     })
+
+    var validateHandle = function () {
+        $.ajax({
+            url: '/users/varify_handle',
+            data: {handle: $('#registration_handle').val()},
+            dataType: 'script',
+            method: 'POST'
+        })
+    }
 })
 
 var openLoginPopup = function () {

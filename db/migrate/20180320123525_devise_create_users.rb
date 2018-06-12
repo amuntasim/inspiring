@@ -39,6 +39,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.integer :user_type
       t.string :provider_name
       t.string :provider_uid
+      t.integer :brand_id
       t.timestamps null: false
     end
 

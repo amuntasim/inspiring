@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :brand do
-    user_id 1
     latitude 1
     longitude 1
     sequence(:name) { |n| "#{ Faker::Lorem.words(2).join(' ')}#{n}" }
