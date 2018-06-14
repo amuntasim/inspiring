@@ -1,0 +1,4 @@
+<% if @comment.errors.empty? %>
+$('[commentable]').text('');
+$('#comments-container').prepend('<%=escape_javascript(render @comment)%>')
+<% end %>

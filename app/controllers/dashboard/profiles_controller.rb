@@ -28,7 +28,7 @@ module Dashboard
 
     private
     def profile_params
-      params.require(:user).permit(:name, :avatar, :phone, :about, :password,
+      params.require(:user).permit(:name, :avatar, :handle, :phone, :about, :password,
                                    :current_password, :password_confirmation,
                                    social_links_attributes: [:name, :url, :id, '_destroy'])
     end

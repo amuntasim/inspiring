@@ -1,0 +1,35 @@
+<li class="comment" id="<%= dom_id(comment) %>">
+  <div class="avatar">
+    <%= link_to image_tag(user_avatar_image(comment.user, :thumb), class: "avatar"), user_profile_link(comment.user) %>
+  </div>
+  <div class="comment-content">
+    <p>
+      <%= link_to user_profile_link(comment.user) do %>
+          <span class="user-name"><%= comment.user&.name %> : </span>
+      <% end %>
+      <span class="comment-body">
+              <%= comment.body %>
+      </span>
+
+      <span class="dropdown">
+        <i class="fa fa-ellipsis-v"></i>
+        <span class="dropdown-content">
+          <a href="javascript:void(0)" data-comment-id="<%= comment.id %>" class=" text-center comment-options edit-comment">
+            <i class="sl sl-icon-pencil"></i> Edit
+          </a>
+          <a href="javascript:void(0)" data-comment-id="<%= comment.id %>" data-confirm="Are you sure?" class=" text-center comment-options delete-comment">
+            <i class="fa fa-times"></i> Delete
+          </a>
+        </span>
+      </span>
+    </p>
+     <div class="pull-right">
+       <span></span>
+       <span>.</span>
+       <span></span>
+       <span>.</span>
+       <span></span>
+     </div>
+
+  </div>
+</li>

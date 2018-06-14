@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_15_124728) do
+ActiveRecord::Schema.define(version: 2018_06_13_084536) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.integer "integer", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "story_id"
+    t.integer "user_id"
+    t.integer "replies_count", default: 0
+    t.text "body"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["story_id"], name: "index_comments_on_story_id"
   end
 
   create_table "inspirations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -139,6 +151,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_124728) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "inspirations_count", default: 0
+    t.integer "comments_count", default: 0
     t.index ["category_id"], name: "index_stories_on_category_id"
     t.index ["deleted_at"], name: "index_stories_on_deleted_at"
   end

@@ -26,11 +26,15 @@
               <label><%= t('attributes.name') %></label>
               <%= f.text_field :name %>
 
+              <label><%= t('attributes.email') %></label>
+              <%= f.text_field :email, disabled: true %>
+
+              <label>@</label>
+              <%= f.text_field :handle %>
+
               <label><%= t('attributes.phone') %></label>
               <%= f.text_field :phone %>
 
-              <label><%= t('attributes.email') %></label>
-              <%= f.text_field :email, disabled: true %>
 
               <label><%= t('attributes.about') %></label>
               <%= f.text_area :about, cols: 30, rows: 3 %>

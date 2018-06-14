@@ -11,6 +11,7 @@ class Story < ApplicationRecord
 
   has_many :taggings, as: :taggable, validate: false
   has_many :tags, through: :taggings , validate: false
+  has_many :comments
 
   delegate :name, to: :category , prefix: true, allow_nil: true
 end

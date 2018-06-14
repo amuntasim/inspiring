@@ -16,11 +16,20 @@
 <div class="clearfix"></div>
 
 <div class="comments-section">
+  <ul id="comments-container" class="">
+    <%= render partial: "/dashboard/comments/comment", collection: story.comments.roots %>
+  </ul>
   <% if current_user %>
       <div class="user-input-section">
         <%= image_tag user_avatar_image(current_user, :thumb), class: 'avatar size32' %>
-        <a href="#story-form-dialog" class="story-editable popup-with-zoom-anim" contenteditable="true">What's your
-          comment?</a>
+        <a href="javascript:void(0)" commentable="true" story-id="<%= story.id %>" class="story-editable popup-with-zoom-anim" placeholder="What's your
+          comment?" contenteditable="true"></a>
+      </div>
+      <div class="edit-comment-section hidden">
+        <div class="edit-comment-wrapper">
+          <a href="javascript:void(0)"  class="comment-editable story-editable" contenteditable="true"> test....</a>
+          <span class="cancel">(Close)</span>
+        </div>
       </div>
   <% end %>
 </div>

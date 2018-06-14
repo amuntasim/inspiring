@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   namespace :dashboard, path: '/ud' do
     resources :inspirations, only: [:index, :create, :destroy]
     resources :messages
+    resources :comments
     resources :brands
     resources :reviews, only: [:index, :create]
     resources :stories, only: [:index, :create]
