@@ -608,7 +608,7 @@ button.dismiss {
 }
 
 .account-summary .account-group, .account-summary .account-action {
-    display: block;
+    display: inline-block;
     line-height: 16px
 }
 

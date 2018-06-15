@@ -43,6 +43,8 @@ gem "aws-sdk-s3", require: false
 gem "omniauth-facebook", "~> 5.0.0"
 gem "omniauth-twitter"
 gem "omniauth-google-oauth2"
+gem "webpacker"
+gem "react-rails"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
