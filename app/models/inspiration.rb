@@ -4,6 +4,8 @@ class Inspiration < ApplicationRecord
   validates :user_id, presence: true
   validates :inspiring_id, presence: true, uniqueness: { scope: [:user_id, :inspiring_type], message: I18n.t('notifications.already_inspired') }
 
+  scope :stories, -> { where(inspiring_type: 'Story') }
+
   after_save :reset_cache
   before_destroy :reset_cache
 

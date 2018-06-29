@@ -12,6 +12,11 @@ class Story < ApplicationRecord
   has_many :taggings, as: :taggable, validate: false
   has_many :tags, through: :taggings , validate: false
   has_many :comments
+  has_many :inspirations , as: :inspiring
 
   delegate :name, to: :category , prefix: true, allow_nil: true
+
+  def inspired?(user)
+    Inspiration.stories.where(inspiring_id: self.id, user_id: user&.id).any?
+  end
 end

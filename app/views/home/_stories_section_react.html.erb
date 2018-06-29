@@ -1,1 +1,1 @@
-<%= react_component("UserStoryList", { user_id: current_user.id }) %>
+<%= react_component("users/UserStoryList", { user_id: @user&.id, current_user: current_user }) %>

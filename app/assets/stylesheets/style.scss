@@ -1025,7 +1025,8 @@ body #navigation ul ul {
 
 /* Avatar */
 .user-name span img {
-  width: 100%;
+  width: 36px;
+  height: 36px;
   display: inline-block;
   border-radius: 50%;
   image-rendering: -webkit-optimize-contrast;
@@ -4661,7 +4662,7 @@ a.send-message-to-owner.button, a.send-message.button {
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 50px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   line-height: 22px;
   margin-bottom: 9px;
   transition: 0.3s;
@@ -4709,6 +4710,7 @@ a.send-message-to-owner.button, a.send-message.button {
 }
 
 .like-button:hover .like-icon,
+.like-button.liked .like-icon,
 .like-button .like-icon.liked {
   background-color: #f3103c;
   color: #fff;

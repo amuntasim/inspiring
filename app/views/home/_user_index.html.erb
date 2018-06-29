@@ -4,7 +4,7 @@
       <%= render "user_area_left", user: current_user %>
     </div>
     <div class="col-md-6 no-side-padding" style="margin-left: -5px;margin-right: -5px;">
-      <%= render "home/story_form_popup" %>
+      <%= render "home/story_form_popup" if current_user %>
       <%= render "stories_section" %>
     </div>
     <div class="col-md-3">

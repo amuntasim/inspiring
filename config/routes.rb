@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :stories
+      resources :stories do
+        collection do
+          get :public_list
+        end
+        member do
+          post :inspired
+        end
+      end
       post 'auth/login', to: 'authentication#authenticate'
       post 'signup', to: 'users#create'
     end
@@ -31,9 +38,9 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: :dashboard
 
-  devise_for :users, controllers: { sessions:      'users/sessions',
-                                    registrations: 'users/registrations',
-                                    passwords:     'users/passwords',
+  devise_for :users, controllers: { sessions:           'users/sessions',
+                                    registrations:      'users/registrations',
+                                    passwords:          'users/passwords',
                                     omniauth_callbacks: 'users/omniauth'
                    }
   resources :users, only: [:show] do

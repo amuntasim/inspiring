@@ -1,13 +1,13 @@
 module Api
   module V1
     class StoriesController < Api::BaseController
-      before_action :set_story, only: [:show, :update, :destroy]
+      before_action :set_story, only: [:show, :update, :destroy, :inspired]
+      skip_before_action :authorize_request!, only: [:index]
 
       # GET /stories
       def index
-        # get current user stories
-        @stories = current_user.stories.paginate(page: params[:page], per_page: 20)
-        json_response(@stories)
+        @stories = StorySearchFacade.new(params).stories
+        render json: @stories, meta: pagination_dict(@stories).merge(current_user_meta || {})
       end
 
       # GET /stories/:id
@@ -34,6 +34,15 @@ module Api
         head :no_content
       end
 
+      def inspired
+        inpiration = Inspiration.create_or_destroy!(@story, current_user.id)
+        if inpiration.destroyed?
+          render json: { inpiration_id: inpiration.id, deleted: 1 }, status: 202
+        else
+          json_response(inpiration, :created)
+        end
+      end
+
       private
 
       def story_params
@@ -42,6 +51,14 @@ module Api
 
       def set_story
         @story = Story.find(params[:id])
+      end
+
+      def current_user_meta
+        if current_user && params[:current_user_meta]
+          inspired_story_ids = Inspiration.stories.
+              where(inspiring_id: @stories.pluck(:id), user_id: current_user.id).pluck(:inspiring_id)
+          {inspired_story_ids: inspired_story_ids}
+        end
       end
     end
   end

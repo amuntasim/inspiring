@@ -14,8 +14,9 @@
  *= require plugins/datedropper
  *= require plugins/timedropper
  *= require bootstrap3.rtl
+ *= require bootstrap.min
  *= require bootstrap-social
- *= require twitter
+ *= require custom-theme.css
  *= require colors/navy
  *= require_self
  */
@@ -150,20 +151,28 @@ input.button.fullwidth {
 }
 
 .story-item {
-  cursor: pointer;
+  .content {
+    margin-left: 58px;
+    margin-right: 20px
+  }
+  position: relative;
   background: white;
   padding: 10px;
   border-bottom: 1px solid $custom_bg_color;
+  margin-bottom: 10px;
   .avatar {
     left: 10px !important;
     top: 10px;
   }
 
+  .like-icon:before, .like-icon:after {
+    top: 0px;
+  }
   p.story-content {
     margin-bottom: 5px;
     font-size: 14px;
     line-height: 20px;
-    margin-top: 5px;
+    cursor: pointer;
   }
   &:hover {
     background: #f5f8fa;
@@ -319,11 +328,11 @@ input.button.fullwidth {
   border-top: 1px solid darken($custom_bg_color, 5%);
   border-bottom: 1px solid darken($custom_bg_color, 5%);
   width: 100%;
-  float: left;
   padding-top: 10px;
   ul {
     margin-bottom: 1px;
   }
+  display: inline-block;
 }
 
 .comments-section {
@@ -431,5 +440,21 @@ input.button.fullwidth {
     cursor: pointer;
   }
 
+}
+
+.share-icon button {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 50px;
+  font-weight: 500;
+  padding: 5px 10px;
+  line-height: 22px;
+  display: inline-block;
+  span {
+    margin: 0px 3px;
+  }
+  &:hover span {
+    color: #f3103c;
+  }
 }
 

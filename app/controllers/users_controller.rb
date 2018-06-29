@@ -4,9 +4,6 @@ class UsersController < ApplicationController
   end
 
   def home
-    h = {a: 2, b: 3}
-    h = h.to_param
-    raise h.inspect
     @user    = User.find_by_handle(params[:handle])
     @stories = Story.where(user_id: @user.id).order("created_at desc").page(params[:page]).per_page(10)
   end
