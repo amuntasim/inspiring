@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         end
         member do
           post :inspired
+          get :comments
         end
       end
       post 'auth/login', to: 'authentication#authenticate'

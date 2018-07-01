@@ -1346,59 +1346,59 @@ $(document).on('click', '.open-login-dialog', function (e) {
     openLoginPopup();
 });
 
-$(document).on('keypress', '[commentable]', function (e) {
-    if(e.keyCode == 13 && e.shiftKey == false && $.trim($(this).html()).length > 0) {
-        e.preventDefault();
-        $.ajax({
-            url: '/ud/comments',
-            data: {comment: {body: $(this).html(), story_id: $(this).attr('story-id'),parent_id: $(this).attr('parent-id'),}},
-            dataType: 'script',
-            method: 'POST'
-        })
-    }
-});
-
-$(document).on('click', '.edit-comment', function () {
-    var commentId = $(this).data('comment-id');
-    var elem = $($('.edit-comment-section').html());
-    var commentEditable   = elem.find('.comment-editable');
-    var commentRow = $('#comment_' + commentId);
-    var commentRowContent = commentRow.find('.comment-content');
-    var commentData = commentRow.find('.comment-body').html();
-    commentEditable.html(commentData);
-    elem.insertAfter(commentRowContent).slideDown("fast");
-    commentRowContent.hide();
-
-    var hideEditable = function(){
-        $('.comment .edit-comment-wrapper').remove();
-        commentRowContent.show();
-    }
-    elem.find('.cancel').click(function () {
-        hideEditable();
-    });
-    elem.find('.comment-editable').keypress(function (e) {
-        if(e.keyCode == 13 && e.shiftKey == false && $.trim($(this).html()).length > 0) {
-            e.preventDefault();
-            $.ajax({
-                url: '/ud/comments/'+ commentId,
-                data: {comment: {body: $(this).html()}},
-                dataType: 'script',
-                method: 'PATCH'
-            })
-        }
-    })
-});
-
-var deleteStoryComment = function(commentId){
-    $.ajax({
-        url: '/ud/comments/'+ commentId,
-        dataType: 'script',
-        method: 'DELETE'
-    })
-}
-
-$(document).on('click', '.delete-comment', function () {
-    var commentId = $(this).data('comment-id');
-    deleteStoryComment(commentId);
-});
+//$(document).on('keypress', '[commentable]', function (e) {
+//    if(e.keyCode == 13 && e.shiftKey == false && $.trim($(this).html()).length > 0) {
+//        e.preventDefault();
+//        $.ajax({
+//            url: '/ud/comments',
+//            data: {comment: {body: $(this).html(), story_id: $(this).attr('story-id'),parent_id: $(this).attr('parent-id'),}},
+//            dataType: 'script',
+//            method: 'POST'
+//        })
+//    }
+//});
+//
+//$(document).on('click', '.edit-comment', function () {
+//    var commentId = $(this).data('comment-id');
+//    var elem = $($('.edit-comment-section').html());
+//    var commentEditable   = elem.find('.comment-editable');
+//    var commentRow = $('#comment_' + commentId);
+//    var commentRowContent = commentRow.find('.comment-content');
+//    var commentData = commentRow.find('.comment-body').html();
+//    commentEditable.html(commentData);
+//    elem.insertAfter(commentRowContent).slideDown("fast");
+//    commentRowContent.hide();
+//
+//    var hideEditable = function(){
+//        $('.comment .edit-comment-wrapper').remove();
+//        commentRowContent.show();
+//    }
+//    elem.find('.cancel').click(function () {
+//        hideEditable();
+//    });
+//    elem.find('.comment-editable').keypress(function (e) {
+//        if(e.keyCode == 13 && e.shiftKey == false && $.trim($(this).html()).length > 0) {
+//            e.preventDefault();
+//            $.ajax({
+//                url: '/ud/comments/'+ commentId,
+//                data: {comment: {body: $(this).html()}},
+//                dataType: 'script',
+//                method: 'PATCH'
+//            })
+//        }
+//    })
+//});
+//
+//var deleteStoryComment = function(commentId){
+//    $.ajax({
+//        url: '/ud/comments/'+ commentId,
+//        dataType: 'script',
+//        method: 'DELETE'
+//    })
+//}
+//
+//$(document).on('click', '.delete-comment', function () {
+//    var commentId = $(this).data('comment-id');
+//    deleteStoryComment(commentId);
+//});
 

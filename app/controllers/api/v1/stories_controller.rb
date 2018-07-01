@@ -1,7 +1,7 @@
 module Api
   module V1
     class StoriesController < Api::BaseController
-      before_action :set_story, only: [:show, :update, :destroy, :inspired]
+      before_action :set_story, only: [:show, :comments, :update, :destroy, :inspired]
       skip_before_action :authorize_request!, only: [:index]
 
       # GET /stories
@@ -43,7 +43,18 @@ module Api
         end
       end
 
+      def comments
+        @comments = fetch_comments
+        render json: @comments, meta: pagination_dict(@comments)
+      end
+
       private
+
+      def fetch_comments
+        @comments = @story.comments
+        @comments = @comments.roots if params[:root_comments].present?
+        @comments = @comments.paginate(:page => params[:page], per_page: 10)
+      end
 
       def story_params
         params.permit(:title, :category_id, :description, :cover_photo, tag_ids: [])

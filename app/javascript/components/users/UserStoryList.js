@@ -5,22 +5,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import update from 'immutability-helper';
 import qwest from 'qwest';
 import Story from '../Story.js';
-import {
-    FacebookShareButton,
-    GooglePlusShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    TelegramShareButton,
-    WhatsappShareButton,
-    PinterestShareButton,
-    VKShareButton,
-    OKShareButton,
-    RedditShareButton,
-    TumblrShareButton,
-    LivejournalShareButton,
-    ViberShareButton,
-    EmailShareButton,
-} from 'react-share';
 
 class UserStoryList extends React.Component {
     constructor(props) {
