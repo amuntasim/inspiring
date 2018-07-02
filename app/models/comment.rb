@@ -5,6 +5,6 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :story, counter_cache: true
-  belongs_to :parent, class_name: "Comment", optional: true,  counter_cache: true
+  belongs_to :parent, class_name: "Comment", optional: true,  counter_cache: 'replies_count'
   scope :roots, -> { where(parent_id: nil) }
 end

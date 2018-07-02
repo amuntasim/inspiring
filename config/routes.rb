@@ -7,8 +7,8 @@ Rails.application.routes.draw do
         end
         member do
           post :inspired
-          get :comments
         end
+        resources :comments
       end
       post 'auth/login', to: 'authentication#authenticate'
       post 'signup', to: 'users#create'

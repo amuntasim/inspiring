@@ -23,6 +23,7 @@
 
 $primary_bg_color: #495d7f;
 $custom_bg_color: #dce2eb;
+$link_color: #337ab7;
 #wrapper {
   background-color: $custom_bg_color !important;
 }
@@ -206,15 +207,29 @@ input.button.fullwidth {
   &.comment-form {
     position: relative;
   }
+
 }
 
-.comments-section .user-input-section{
+.comments-section .user-input-section {
   margin-top: 15px;
   margin-left: -10px;
   margin-right: -10px;
- .avatar {
-   top: 13px;
- }
+  .avatar {
+    top: 13px;
+  }
+  &.reply-form {
+    margin-top: 0px;
+    padding: 5px;
+    position: relative;
+    display: flex;
+    background: none;
+    .story-editable {
+      font-size: 14px;
+      width: calc(100% - 50px);
+      margin-left: 10px;
+      border: 1px solid $primary_bg_color;
+    }
+  }
 }
 
 .story-editable {
@@ -225,6 +240,7 @@ input.button.fullwidth {
   border-radius: 30px;
   padding: 5px 15px;
   text-decoration: none;
+  outline: none;
 }
 
 .comment-editable {
@@ -365,7 +381,7 @@ input.button.fullwidth {
       height: 32px;
       width: 32px;
       top: 1px;
-      left: 0px!important;
+      left: 0px !important;
       img {
         width: 32px;
       }
@@ -373,6 +389,8 @@ input.button.fullwidth {
     .comment-content {
       padding-left: 10px;
       float: left;
+      position: relative;
+      width: 100%;
       p {
         font-size: 14px;
         line-height: 20px;
@@ -494,7 +512,23 @@ input.button.fullwidth {
 }
 
 .linkable {
-  text-decoration: underline;
   cursor: pointer;
-  color: #337ab7;
+  color: $link_color;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.comment-links {
+  line-height: 15px;
+  display: flex;
+
+  > span {
+    padding: 0px 5px;
+  }
+  .reply-link {
+    font-size: 10px;
+    font-weight: 500;
+    color: $link_color;
+  }
 }

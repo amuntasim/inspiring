@@ -8,6 +8,7 @@
     "prop-types": "^15.6.2",
     "qwest": "^4.5.0",
     "react": "^16.4.1",
+    "react-contenteditable": "^2.1.0",
     "react-dom": "^16.4.1",
     "react-dynamic-modal": "^1.1.1",
     "react-infinite-scroller": "^1.1.4",
