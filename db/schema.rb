@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_13_084536) do
+ActiveRecord::Schema.define(version: 2018_07_05_040303) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -172,6 +172,16 @@ ActiveRecord::Schema.define(version: 2018_06_13_084536) do
     t.index ["category"], name: "index_tags_on_category"
   end
 
+  create_table "used_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "points"
+    t.string "reference_type"
+    t.integer "reference_id"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -202,6 +212,8 @@ ActiveRecord::Schema.define(version: 2018_06_13_084536) do
     t.datetime "updated_at", null: false
     t.integer "stories_count", default: 0
     t.integer "inspirations_count", default: 0
+    t.integer "inspiration_points", default: 0
+    t.integer "used_points_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["handle"], name: "index_users_on_handle", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -40,7 +40,7 @@ class Comment extends React.Component {
                         const reply = resp.comment;
                         if (reply) {
                             var replies = self.state.replies;
-                            replies.unshift(reply)
+                            replies.push(reply)
                             var comment = self.state.comment;
                             comment.replies_count += 1;
                             self.setState({comment: comment, replies: replies, newReplyContent: ''})
@@ -66,7 +66,7 @@ class Comment extends React.Component {
                     var replies = self.state.replies;
                     resp.comments.map((comment) => {
                         if (replies.filter(e => e.id == comment.id).length == 0) {
-                            replies.unshift(comment);
+                            replies.push(comment);
                         }
                     });
 
@@ -118,7 +118,10 @@ class Comment extends React.Component {
                     </div>
                     <ul>
                         {this.state.replies.map((reply, i) =>
-                                <CommentReply key={reply.id} comment={reply} currentUser={this.currentUser}/>
+                                <CommentReply key={reply.id} comment={reply}
+                                              currentUser={this.currentUser}
+                                              toggleReplyForm={this.toggleReplyForm}
+                                    />
                         )}
                     </ul>
                     <div className={this.state.replyFormContainerClass}>

@@ -21,21 +21,24 @@
         </span>
       </div>
 
-      <div class="row text-center user-stats">
-        <div class="col-md-12" style="margin-top: 10px">
-          <div class="col-md-4">
+      <div class="row text-center user-stats margin-top-15">
+        <div class="col-md-4">
+          <div>
             <strong>Stories</strong>
-            <span><%= user.stories_count %></span>
           </div>
-          <div class="col-md-4">
-            <strong>Followers</strong>
-            <span>32</span>
-          </div>
-          <div class="col-md-4">
-            <strong>Following</strong>
-            <span>32</span>
-          </div>
+          <span><%= user.stories_count %></span>
         </div>
+        <div class="col-md-4">
+          <div><strong>Inspired</strong>
+          </div>
+          <span><%= user.inspirations_count %></span>
+        </div>
+        <div class="col-md-4">
+          <div><strong title="Inspiration Point">IP</strong>
+          </div>
+          <span><%= user.net_inspiration_point %></span>
+        </div>
+
       </div>
       <div id="user-area-profile-prompt"></div>
 
@@ -48,29 +51,8 @@
       <div class="flex-module trends-container context-trends-container">
         <div class="flex-module-header">
 
-          <h3><span class="trend-location js-trend-location">Trends for you</span></h3>
-          <span class="middot" aria-hidden="true">·</span>
-          <a role="button" href="#" data-modal="change-trends" class="btn-link change-trends js-trend-toggle">
-            <span aria-hidden="true">Change</span>
-            <span class="u-hiddenVisually">Change trend settings</span>
-          </a>
-        </div>
-        <div class="flex-module-inner">
-          <ul class="trend-items js-trends">
-            <li class="trend-item js-trend-item  context-trend-item" data-trend-name="#RoyalWedding" data-trends-id="-7666745841716761420" data-trend-token=":tailored_request:hashtag_trend:taxi_region_source:tweet_count_1000000_10000000_metadescription:">
+          <h3><span class="trend-location js-trend-location">Preferred Categories</span></h3>
 
-              <a class="pretty-link js-nav js-tooltip u-linkComplex" href="/hashtag/RoyalWedding?src=tren" data-query-source="trend_click" data-original-title="">
-                <span class="u-linkComplex-target trend-name" dir="ltr">#RoyalWedding<img class="twitter-hashflag" src="https://abs.twimg.com/hashflags/royalwedding2018/royalwedding2018.png" draggable="false" alt=""></span>
-
-
-                <div class="js-nav trend-item-context"></div>
-                <div class="js-nav trend-item-stats">
-                  5.79M Tweets
-                </div>
-              </a>
-
-            </li>
-          </ul>
         </div>
       </div>
     </div>

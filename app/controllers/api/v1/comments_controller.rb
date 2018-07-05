@@ -32,7 +32,9 @@ module Api
       def fetch_comments
         @comments = @story.comments
         @comments = @comments.roots if params[:root_comments].present?
-        @comments = @comments.where(parent_id: params[:parent_id]) if params[:parent_id].present?
+        if params[:parent_id].present?
+          @comments = @comments.where(parent_id: params[:parent_id]).order("created_at ASC")
+        end
         @comments = @comments.paginate(:page => params[:page], per_page: params[:skip_paginate] ? @comments.count : 10 )
       end
 

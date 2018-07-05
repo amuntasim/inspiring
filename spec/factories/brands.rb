@@ -10,5 +10,6 @@ FactoryBot.define do
     end
     web Faker::Internet.domain_name
     phone Faker::PhoneNumber.cell_phone
+    user {build(:user)}
   end
 end

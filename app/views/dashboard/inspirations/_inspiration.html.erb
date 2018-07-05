@@ -1,0 +1,43 @@
+<li>
+  <% if brand = inspiration.inspiring && brand.is_a?(Brand) %>
+      <div class="list-box-listing">
+        <div class="list-box-listing-img">
+          <%= link_to image_tag(brand.main_image_url), brand_path(brand) %>
+        </div>
+        <div class="list-box-listing-content">
+          <div class="inner">
+            <h3><%= link_to brand.name, brand_path(brand) %></h3>
+            <span><%= brand.full_address_formated.html_safe %></span>
+
+            <div class="star-rating" data-rating="<%= brand.avg_rating %>">
+              <div class="rating-counter"><%= review_counts(brand) %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="buttons-to-right">
+        <%= link_to dashboard_inspiration_path(inspiration), class: 'button gray reject cancel-reservation', 'data-method' => :delete, 'data-confirm' => t('label.are_you_sure'), remote: true do %>
+            <i class="sl sl-icon-close"></i> <%= t('label.delete') %>
+        <% end %>
+      </div>
+  <% else %>
+      <% story = inspiration.inspiring; user = story.user %>
+      <div class="list-box-listing">
+        <div class="list-box-listing-img">
+          <%= link_to image_tag(user_avatar_image(user, :thumb)), user_profile_path(user.handle) %>
+        </div>
+        <div class="list-box-listing-content">
+          <div class="inner">
+            <h3><%= link_to "@#{user.handle}", user_profile_path(user.handle) %></h3>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="buttons-to-right">
+        <%= link_to dashboard_inspiration_path(inspiration), class: 'button gray reject cancel-reservation', 'data-method' => :delete, 'data-confirm' => t('label.are_you_sure'), remote: true do %>
+            <i class="sl sl-icon-close"></i> <%= t('label.delete') %>
+        <% end %>
+      </div>
+  <% end %>
+</li>
+

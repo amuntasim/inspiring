@@ -14,9 +14,9 @@ class User < ApplicationRecord
   before_create :try_auto_confirm
 
   validates :name, presence: true
-  validates :handle, presence: true, uniqueness: true, format: {
-                       with: VALID_HANDLE_REGEX , message: "Invalid!, use atleast 4 characters alphanumeric"
-                   }, exclusion: { in: RESERVED_HANDLES,
+  validates :handle, presence:   true, uniqueness: true, format: {
+                       with: VALID_HANDLE_REGEX, message: "Invalid!, use atleast 4 characters alphanumeric"
+                   }, exclusion: { in:      RESERVED_HANDLES,
                                    message: "%{value} is reserved." }
 
   has_many :stories
@@ -43,6 +43,10 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.skip_confirmation!
     end
+  end
+
+  def net_inspiration_point
+    inspiration_points - used_points_count
   end
 
   private

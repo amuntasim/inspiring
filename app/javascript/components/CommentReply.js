@@ -42,7 +42,10 @@ class CommentReply extends React.Component {
                         </span>
                       </span>
                     </p>
-                    <span className="linkable reply-link">Reply</span>
+
+                    <div className="comment-links">
+                        <span className="linkable reply-link" onClick={this.props.toggleReplyForm}>Reply</span>
+                    </div>
                 </div>
             </li>
         );

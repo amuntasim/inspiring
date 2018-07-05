@@ -9,6 +9,7 @@ RSpec.describe Inspiration, type: :model do
   context "caching" do
     it 'should update cache' do
       allow_any_instance_of(Inspiration).to receive(:user) { User.new }
+      allow_any_instance_of(Brand).to receive(:category) { Category.new }
       Rails.cache.delete_matched("cached_properties*")
       Rails.cache.delete_matched("cached_spaces*")
       inspiration = create(:inspiration,:brand )
@@ -21,18 +22,23 @@ RSpec.describe Inspiration, type: :model do
 
   context '.create_or_destroy!' do
     before do
+      @user = create(:user)
       allow_any_instance_of(Inspiration).to receive(:user) { User.new }
       allow_any_instance_of(Brand).to receive(:category) { Category.new }
-      @brand = create(:brand)
+      @brand = create(:brand, user: @user)
     end
+
     it 'should create  inspiration' do
-      inspiration = Inspiration.create_or_destroy!(@brand, 2)
+      inspiration = Inspiration.create_or_destroy!(@brand, @user.id)
       expect(inspiration.id > 0).to be_truthy
+      expect(@user.reload.inspiration_points).to eq 1
     end
+
     it 'should destroy inspiration' do
-      Inspiration.create_or_destroy!(@brand, 2)
-      inspiration = Inspiration.create_or_destroy!(@brand, 2)
+      Inspiration.create_or_destroy!(@brand, @user.id)
+      inspiration = Inspiration.create_or_destroy!(@brand, @user.id)
       expect(inspiration.destroyed?).to be_truthy
+      expect(@user.reload.inspiration_points).to eq 0
     end
   end
 end

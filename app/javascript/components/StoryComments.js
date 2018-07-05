@@ -97,6 +97,9 @@ class StoryComments extends React.Component {
             <div className="comments-section">
                 <div className="comments-summary">
                    <CommentsCount story={this.state.story} loadRootComments={this.loadRootComments}/>
+                    {this.state.page > 1 && this.state.hasMoreItems &&
+                    <span className="linkable" onClick={this.loadRootComments}> Load more comments</span>
+                    }
                 </div>
                 <ul>
                     {this.state.comments.map((comment, i) =>

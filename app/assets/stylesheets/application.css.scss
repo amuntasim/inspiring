@@ -26,6 +26,8 @@ $custom_bg_color: #dce2eb;
 $link_color: #337ab7;
 #wrapper {
   background-color: $custom_bg_color !important;
+  min-height: -webkit-fill-available;
+  min-height: -moz-fill-available;
 }
 
 .has-error {
@@ -173,10 +175,6 @@ input.button.fullwidth {
     margin-bottom: 5px;
     font-size: 14px;
     line-height: 20px;
-    cursor: pointer;
-  }
-  &:hover {
-    background: #f5f8fa;
   }
 }
 
@@ -395,17 +393,17 @@ input.button.fullwidth {
         font-size: 14px;
         line-height: 20px;
         position: relative;
-        padding: 3px 10px;
-        border-radius: 25px;
+        padding: 5px 10px;
+        border-radius: 15px;
         display: inline-block;
         margin-right: 25px;
-        background-color: #e9ebef;
+        background-color: #eff1f3;
 
         span.user-name {
           font-weight: bold;
         }
         span.comment-body {
-          color: #000;
+          color: #1d2129;
         }
 
         .dropdown {
@@ -519,16 +517,22 @@ input.button.fullwidth {
   }
 }
 
+.comments-summary > span {
+  margin: 0px 5px;
+
+}
+
 .comment-links {
   line-height: 15px;
   display: flex;
 
-  > span {
-    padding: 0px 5px;
-  }
   .reply-link {
     font-size: 10px;
     font-weight: 500;
     color: $link_color;
+  }
+
+  > span {
+    margin: 0px 6px;
   }
 }
