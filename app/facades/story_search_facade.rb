@@ -14,7 +14,7 @@ class StorySearchFacade
   end
 
   def stories
-    filtered_stories.paginate(:page => @search.page, per_page: 10)
+    filtered_stories.order('stories.created_at DESC').paginate(:page => @search.page, per_page: 10)
   end
 
   def prepare_filters

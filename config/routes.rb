@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     resources :messages
     resources :comments
     resources :brands
+    resources :categories do
+      match 'preferences', :on => :collection, via: [:get, :post]
+    end
     resources :reviews, only: [:index, :create]
     resources :stories, only: [:index, :create]
     resource :profile do

@@ -156,7 +156,6 @@ input.button.fullwidth {
 .story-item {
   .content {
     margin-left: 58px;
-    margin-right: 20px
   }
   position: relative;
   background: white;
@@ -410,15 +409,7 @@ input.button.fullwidth {
           position: absolute;
           right: - 25px;
           top: calc(50% - 13px);
-          line-height: 16px;
-          > i {
-            font-size: 14px;;
-            font-weight: normal;
-            width: 10px;
-            padding: 7px 5px;
-            padding-right: 20px;
-            cursor: pointer;
-          }
+
         }
       }
 
@@ -426,6 +417,17 @@ input.button.fullwidth {
     .comment-options {
       font-size: 10px;
     }
+  }
+}
+
+.dropdown {
+  line-height: 16px;
+  > i {
+    font-size: 14px;
+    font-weight: normal;
+    width: 10px;
+    padding: 7px 5px;
+    cursor: pointer;
   }
 }
 
@@ -439,17 +441,18 @@ input.button.fullwidth {
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content, .custom-dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 10px;
   z-index: 1;
-  a {
+  span {
     display: inline-flex;
-    padding: 4px 10px;
-    border-radius: 15px;
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 12px;
+    cursor: pointer;
     &:hover {
       background-color: #cccccc;
     }
@@ -459,7 +462,7 @@ input.button.fullwidth {
   }
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content, .dropdown.clicked .custom-dropdown-content {
   display: block;
 }
 
@@ -536,3 +539,83 @@ input.button.fullwidth {
     margin: 0px 6px;
   }
 }
+
+.story-form.expanded {
+  .story-form-header {
+    margin-left: 40px;
+    background-color: $custom_bg_color;
+    padding: 2px 5px;
+    .close-editable-btn {
+      float: right;
+    }
+  }
+  .story-editable {
+    border-radius: 0;
+  }
+
+  ul.selected-covers {
+    flex-wrap: wrap;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    margin-top: 10px;
+  }
+
+  ul.selected-covers li {
+    width: 150px;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  ul.selected-covers li div.photo {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    border-radius: 4px;
+    border: 2px solid #333;
+    position: relative;
+  }
+
+  ul.selected-covers li div.photo div.remove {
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    background: #000;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    padding: 2.5;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 5px #000;
+    right: 10px;
+  }
+
+  ul.selected-covers li div.file-name {
+    color: #999;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+
+
+.close-editable-btn {
+  background-color: $primary_bg_color;
+
+  color: white;
+  font-weight: bold;
+  &:hover {
+    color: #cdcdcd;
+  }
+}
+
+a.time-ago {
+  margin: 0px 10px;
+}
+
+

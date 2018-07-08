@@ -20,6 +20,7 @@ class User < ApplicationRecord
                                    message: "%{value} is reserved." }
 
   has_many :stories
+  has_and_belongs_to_many :categories
   has_many :social_links, as: :social_linkable
   accepts_nested_attributes_for :social_links, allow_destroy: true, reject_if: proc { |attributes| attributes['name'].blank? }
 

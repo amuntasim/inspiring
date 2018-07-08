@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
   scope :for, ->(category_for) {where(for: category_for)}
 
   def self.cached_json(category_for = nil)
-    Rails.cache.fetch("cached_categories_json//#{category_for}_#{I18n.locale}") do
+    Rails.cache.fetch("cached_categories_json/#{category_for}_#{I18n.locale}") do
       cats = Category.for(category_for) if category_for
       cats.collect { |c| {id: c.id, name: c.name} }.to_json
     end

@@ -5,17 +5,18 @@ import InfiniteScroll from 'react-infinite-scroller';
 import update from 'immutability-helper';
 import qwest from 'qwest';
 import Story from '../Story.js';
+import NewStory from '../NewStory.js';
 
 class UserStoryList extends React.Component {
     constructor(props) {
         super(props);
 
-        var currentUser =  props.current_user || {}
+        var currentUser = props.current_user || {}
         currentUser.inspiredStoryIds = currentUser.inspiredStoryIds || []
 
         var stories = [];
-        if(props.single_view){
-           var story = props.story_data.story;
+        if (props.single_view) {
+            var story = props.story_data.story;
             story.current_user_inspired = props.current_user_inspired;
             stories = [story];
         }
@@ -67,7 +68,7 @@ class UserStoryList extends React.Component {
                         self.setState(Object.assign(stateData, {hasMoreItems: false}));
                     }
                 }
-            }).catch(function(e, xhr, response) {
+            }).catch(function (e, xhr, response) {
                 console.log(e)
             });
     }
@@ -96,6 +97,11 @@ class UserStoryList extends React.Component {
             });
     }
 
+    onStoryAdded = (story) => {
+        var stories = this.state.stories;
+        stories.unshift(story)
+        this.setState({stories: stories});
+    }
     render() {
         const loader = <div className="loader" key={0}>Loading ...</div>;
 
@@ -108,16 +114,19 @@ class UserStoryList extends React.Component {
         });
 
         return (
-            <InfiniteScroll
-                pageStart={0}
-                loadMore={this.loadItems.bind(this)}
-                hasMore={this.state.hasMoreItems}
-                loader={loader}>
+            <div>
+                <NewStory onStoryAdded={this.onStoryAdded}/>
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={this.loadItems.bind(this)}
+                    hasMore={this.state.hasMoreItems}
+                    loader={loader}>
 
-                <div className="stories" id="story_list">
-                    {items}
-                </div>
-            </InfiniteScroll>
+                    <div className="stories" id="story_list">
+                        {items}
+                    </div>
+                </InfiniteScroll>
+            </div>
         );
     }
 

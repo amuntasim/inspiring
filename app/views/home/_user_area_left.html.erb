@@ -51,7 +51,10 @@
       <div class="flex-module trends-container context-trends-container">
         <div class="flex-module-header">
 
-          <h3><span class="trend-location js-trend-location">Preferred Categories</span></h3>
+          <h5><span class="trend-location js-trend-location">Preferred Categories</span> 
+          <%= link_to "(Change)", preferences_dashboard_categories_path, remote: true , class: 'common-popup' %>
+          </h5>
+
 
         </div>
       </div>

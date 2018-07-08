@@ -1,0 +1,6 @@
+<% if request.post? && @success %>
+  $('#common-popup .mfp-close').trigger('click');
+<% else %>
+$('#common-popup .common-popup-header h3').text("Category preferences")
+$('#common-popup-content').html('<%= escape_javascript(render 'preferences') %>')
+ <% end %>

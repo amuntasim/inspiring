@@ -45,7 +45,8 @@ module Api
 
       private
       def story_params
-        params.permit(:title, :category_id, :description, :cover_photo, tag_ids: [])
+        params.require(:story).permit(:title, :category_id, :description, :photos,
+                                      photos_attachments_attributes: [:id, :_destroy], tag_ids: [])
       end
 
       def set_story

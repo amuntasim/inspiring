@@ -1,0 +1,33 @@
+<% existing_categoreis = current_user.category_ids %>
+<%= form_for :user, url: preferences_dashboard_categories_path, remote: true  do |f| %>
+
+    <div class="panel panel-primary">
+  <div class="panel-heading">
+    Story Categories
+  </div>
+  <div class="panel-body row checkboxes">
+    <% JSON.parse(Category.cached_json('story')).each do |cat| %>
+        <div class="col-md-6">
+          <%= check_box_tag "category_ids[]", cat['id'], existing_categoreis.include?( cat['id'].to_i), {id: "story-tag-#{cat['id']}"} %>
+          <label for="<%= "story-tag-#{cat['id']}" %>"><%= cat['name'] %></label>
+        </div>
+    <% end %>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Brand Categories
+  </div>
+  <div class="panel-body row checkboxes">
+    <% JSON.parse(Category.cached_json('brand')).each do |cat| %>
+        <div class="col-md-6">
+          <%= check_box_tag "category_ids[]", cat['id'], existing_categoreis.include?( cat['id'].to_i), {id: "story-tag-#{cat['id']}"} %>
+          <label for="<%= "story-tag-#{cat['id']}" %>"><%= cat['name'] %></label>
+        </div>
+    <% end %>
+  </div>
+</div>
+ <div class="text-center">
+   <button class="button btn btn-small" type="submit">Save</button>
+ </div>
+<% end %>

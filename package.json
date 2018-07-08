@@ -12,8 +12,11 @@
     "react-dom": "^16.4.1",
     "react-dynamic-modal": "^1.1.1",
     "react-infinite-scroller": "^1.1.4",
+    "react-magnific-popup": "^1.0.1",
     "react-share": "^2.2.0",
-    "react_ujs": "^2.4.4"
+    "react-timeago": "^4.1.9",
+    "react_ujs": "^2.4.4",
+    "sanitize-html": "^1.18.2"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"

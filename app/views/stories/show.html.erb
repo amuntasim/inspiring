@@ -4,7 +4,6 @@
       <%= render "home/user_area_left", user: @story.user %>
     </div>
     <div class="col-md-6 no-side-padding" style="margin-left: -5px;margin-right: -5px;">
-      <%= render "home/story_form_popup" if current_user %>
       <%= react_component("users/UserStoryList", { user_id: @story.user.id, single_view: true, story_data: @serialized_story, current_user_inspired: @story.inspired?(current_user),  current_user: current_user }) %>
     </div>
     <div class="col-md-3">

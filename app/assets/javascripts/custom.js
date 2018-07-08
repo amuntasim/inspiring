@@ -1335,6 +1335,21 @@ $(function () {
             method: 'POST'
         })
     }
+
+    $('.common-popup').magnificPopup({
+        items: {
+            src: '#common-popup',
+            type: 'inline',
+        },
+        fixedContentPos: false,
+        fixedBgPos: true,
+        overflowY: 'auto',
+        closeBtnInside: true,
+        preloader: false,
+        midClick: true,
+        removalDelay: 300,
+        mainClass: 'my-mfp-zoom-in'
+    });
 })
 
 var openLoginPopup = function () {
