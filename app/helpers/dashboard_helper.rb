@@ -43,4 +43,9 @@ module DashboardHelper
   def brand_profile_link(brand)
     brand.persisted? ? brand_profile_path(brand.handle) : ""
   end
+
+  def serialized_current_user
+    _serialized_current_user = UserSerializer.new(current_user, scope: self)
+    ActiveModel::Serializer::Adapter.create(_serialized_current_user)
+  end
 end

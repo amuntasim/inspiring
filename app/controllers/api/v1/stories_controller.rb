@@ -25,7 +25,7 @@ module Api
       # PUT /stories/:id
       def update
         @story.update(story_params)
-        head :no_content
+        json_response(@story)
       end
 
       # DELETE /stories/:id
@@ -45,7 +45,7 @@ module Api
 
       private
       def story_params
-        params.require(:story).permit(:title, :category_id, :description, :photos,
+        params.require(:story).permit(:title, :category_id, :description, photos: [],
                                       photos_attachments_attributes: [:id, :_destroy], tag_ids: [])
       end
 

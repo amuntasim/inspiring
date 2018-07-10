@@ -19,12 +19,12 @@ module Api
       end
 
       def update
-        @story.update(story_params)
-        head :no_content
+        @comment.update(comment_params)
+        json_response(@comment)
       end
 
       def destroy
-        @story.destroy
+        @comment.destroy
         head :no_content
       end
       private

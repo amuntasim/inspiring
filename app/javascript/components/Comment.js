@@ -3,6 +3,9 @@ import PropTypes from "prop-types"
 import CommentReply from './CommentReply.js';
 import RepliesCount from './RepliesCount.js';
 import ContentEditable from 'react-contenteditable'
+import TimeAgo from 'react-timeago'
+import CommentOptions from './CommentOptions.js';
+import update from 'immutability-helper';
 import qwest from 'qwest';
 
 class Comment extends React.Component {
@@ -14,6 +17,7 @@ class Comment extends React.Component {
             replies: [],
             newReplyContent: '',
             replyFormContainerClass: 'hidden',
+            editingComment: false,
             hasMoreItems: true,
         };
     }
@@ -78,6 +82,64 @@ class Comment extends React.Component {
         }
     }
 
+    submitUpdate = (event) => {
+        if (event.charCode == 13 && event.shiftKey == false && this.state.comment.body.length > 0) {
+            event.preventDefault();
+            var self = this;
+            var url = REACT_CLIENT.api.base_url + '/stories/' +
+                this.state.comment.story_id + '/comments/' + this.state.comment.id;
+            qwest.put(url, {
+                comment: {body: this.state.comment.body}
+            }, {})
+                .then(function (xhr, resp) {
+                    if (resp) {
+                        self.props.onCommentUpdated(resp.comment);
+                        self.cancelEditing();
+                    }
+                }).catch(function (e, xhr, response) {
+                    console.log(e)
+                });
+        }
+    }
+
+    deleteReply = (reply) => {
+        var self = this;
+        var url = REACT_CLIENT.api.base_url + '/stories/' +
+            this.state.comment.story_id + '/comments/' + reply.id;
+        qwest.delete(url, null, null)
+            .then(function (xhr, resp) {
+                self.onReplyDeleted(reply)
+            }).catch(function (e, xhr, response) {
+                console.log(e)
+            });
+    }
+
+    handleEditCommentChange = (event) => {
+        let comment = this.state.comment;
+        comment.body = event.target.value
+        this.setState({comment: comment});
+    }
+
+    editComment = () => {
+        this.setState({editingComment: true});
+    }
+
+    cancelEditing = () => {
+        this.setState({editingComment: false});
+    }
+
+    onReplyUpdated = (reply) => {
+        const index = this.state.replies.findIndex((_reply) => _reply.id === reply.id);
+        const updatedReplies = update(this.state.replies, {$splice: [[index, 1, reply]]});
+        this.setState({replies: updatedReplies});
+    }
+    onReplyDeleted = (reply) => {
+        let replies = this.state.replies
+        const index = replies.findIndex((_reply) => _reply.id === reply.id);
+        replies.splice(index, 1);
+        this.setState({replies: replies});
+    }
+
     render() {
         var comment = this.state.comment;
         return (
@@ -89,6 +151,7 @@ class Comment extends React.Component {
                 </div>
 
                 <div className="comment-content">
+                    {!this.state.editingComment &&
                     <p>
                         <a href={"/" + comment.user.handle}>
                             <span className="user-name">{comment.user.handle} : </span>
@@ -96,30 +159,35 @@ class Comment extends React.Component {
                         <span className="comment-body">
                             {comment.body}
                         </span>
-
-                      <span className="dropdown">
-                        <i className="fa fa-ellipsis-v"></i>
-                        <span className="dropdown-content">
-                          <a href="javascript:void(0)" data-comment-id="1"
-                             className=" text-center comment-options edit-comment">
-                              <i className="sl sl-icon-pencil"></i> Edit
-                          </a>
-                          <a href="javascript:void(0)" data-comment-id="1" data-confirm="Are you sure?"
-                             className=" text-center comment-options delete-comment">
-                              <i className="fa fa-times"></i> Delete
-                          </a>
-                        </span>
-                      </span>
+                        <CommentOptions comment={comment} editComment={this.editComment}
+                                        deleteComment={this.props.deleteComment}
+                                        currentUser={this.props.currentUser}/>
                     </p>
-
+                    }
+                    {this.state.editingComment &&
+                    <div>
+                        <ContentEditable
+                            className="story-editable edit-story"
+                            html={comment.body}
+                            onKeyPress={this.submitUpdate}
+                            onChange={this.handleEditCommentChange}
+                            />
+                        <span className="cancel-edit-comment" onClick={this.cancelEditing}>Cancel</span>
+                    </div>
+                    }
                     <div className="comment-links">
                         <span className="linkable reply-link" onClick={this.toggleReplyForm}>Reply</span>
                         <RepliesCount comment={this.state.comment} loadReplies={this.loadReplies}/>
+                        <span className="time-ago">
+                            <TimeAgo date={this.state.comment.created_at}/>
+                        </span>
                     </div>
                     <ul>
                         {this.state.replies.map((reply, i) =>
                                 <CommentReply key={reply.id} comment={reply}
-                                              currentUser={this.currentUser}
+                                              currentUser={this.props.currentUser}
+                                              onReplyUpdated={this.onReplyUpdated}
+                                              deleteReply={this.deleteReply}
                                               toggleReplyForm={this.toggleReplyForm}
                                     />
                         )}

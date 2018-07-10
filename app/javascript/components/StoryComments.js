@@ -4,6 +4,7 @@ import qwest from 'qwest';
 import Comment from './Comment.js';
 import CommentsCount from './CommentsCount.js';
 import ContentEditable from 'react-contenteditable'
+import update from 'immutability-helper';
 
 class StoryComments extends React.Component {
     constructor(props) {
@@ -58,7 +59,6 @@ class StoryComments extends React.Component {
     }
 
 
-
     handleEdit = () => {
 
     }
@@ -92,18 +92,50 @@ class StoryComments extends React.Component {
         }
     }
 
+    deleteComment = (comment) => {
+        var self = this;
+        var url = REACT_CLIENT.api.base_url + '/stories/' +
+            comment.story_id + '/comments/' + comment.id;
+        qwest.delete(url, null, null)
+            .then(function (xhr, resp) {
+                self.onCommentDeleted(comment)
+            }).catch(function (e, xhr, response) {
+                console.log(e)
+            });
+    }
+
+    onCommentUpdated = (comment) => {
+        const index = this.state.comments.findIndex((_comment) => _comment.id === comment.id);
+        const updatedComments = update(this.state.comments, {$splice: [[index, 1, comment]]});
+        this.setState({comments: updatedComments});
+    }
+
+    onCommentDeleted = (comment) => {
+        let comments = this.state.comments
+        const index = comments.findIndex((_comment) => _comment.id === comment.id);
+        comments.splice(index, 1);
+        let story = this.state.story;
+        story.comments_count -= 1;
+        this.setState({story: story, comments: comments});
+    }
+
+
     render() {
         return (
             <div className="comments-section">
                 <div className="comments-summary">
-                   <CommentsCount story={this.state.story} loadRootComments={this.loadRootComments}/>
+                    <CommentsCount story={this.state.story} loadRootComments={this.loadRootComments}/>
                     {this.state.page > 1 && this.state.hasMoreItems &&
                     <span className="linkable" onClick={this.loadRootComments}> Load more comments</span>
                     }
                 </div>
                 <ul>
                     {this.state.comments.map((comment, i) =>
-                            <Comment key={comment.id} comment={comment} handleEdit={this.handleEdit}/>
+                            <Comment key={comment.id} comment={comment}
+                                     currentUser={this.props.currentUser}
+                                     onCommentUpdated={this.onCommentUpdated}
+                                     deleteComment={this.deleteComment}
+                                     handleEdit={this.handleEdit}/>
                     )}
                 </ul>
                 <div className="user-input-section comment-form">

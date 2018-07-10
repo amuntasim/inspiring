@@ -1,26 +1,50 @@
 import React, { Component } from 'react';
-//import StoryForm from '../StoryForm';
 import ContentEditable from 'react-contenteditable'
 import qwest from 'qwest';
 
-class NewStory extends Component {
+class StoryForm extends Component {
     constructor(props) {
         super(props);
+        this.currentUser = this.props.currentUser || {}
+
+        let story = this.props.story || {
+                id: null,
+                description: ''
+            }
+        this.editing = story.id ? true : false;
+        let expanded = ''
+        let storyButtonsClass = 'hidden'
+        if (this.editing) {
+            expanded = 'expanded';
+            storyButtonsClass = '';
+        }
+
         this.state = {
-            storyButtonsClass: 'hidden',
-            expanded: '',
+            storyButtonsClass: storyButtonsClass,
+            expanded: expanded,
             selectedBookCoverFiles: [],
             submitFormProgress: 0,
             isSubmittingForm: false,
-            story: {
-                id: '',
-                description: '',
-                errors: {}
-            }
+            story: story
         };
     }
 
-    newStoryForm = (e) => {
+    componentWillMount() {
+        if (this.editing) {
+            let url = REACT_CLIENT.api.base_url + '/stories/' + this.state.story.id;
+            qwest.get(url).then((xhr,response) => {
+                this.setState({
+                    selectedBookCoverFiles: response.story.photos,
+                    story: {
+                        id: response.story.id,
+                        description: response.story.description,
+                        errors: {}
+                    }
+                });
+            });
+        }
+    }
+    expandStoryForm = (e) => {
         this.setState({expanded: 'expanded', storyButtonsClass: ''})
     }
 
@@ -29,6 +53,9 @@ class NewStory extends Component {
             expanded: '',
             storyButtonsClass: 'hidden'
         })
+        if (this.props.closeEditModal) {
+            this.props.closeEditModal();
+        }
     }
 
     handleDescriptionChange = (event) => {
@@ -37,23 +64,30 @@ class NewStory extends Component {
         this.setState({story: story});
     }
 
+    submitButtonText() {
+        let text = this.editing ?
+            this.state.isSubmittingForm ? 'Updating...' : 'Update' :
+            this.state.isSubmittingForm ? 'Saving...' : 'Save'
+        return text;
+    }
+
     render() {
         return (
             <div className={"user-input-section story-form " + this.state.expanded}>
                 <img className="avatar size32"
-                     src="http://localhost:3000/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--1521db76f36eff6ab9724065f5be205c9e4cafc0/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lNTVRBd2VERXdNQVk2QmtWVSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--695f63dfa8ea24388f084e6ec6ad06a5eb51f42c/profile_pic2.png"/>
+                     src={this.currentUser.avatar_url}/>
 
                 <div className={"story-form-header " + this.state.storyButtonsClass}>
                     Post
-                    <button title="Close (Esc)" type="button" onClick={this.closeStoryForm}
-                            className="btn btn-xs close-editable-btn ">Close (Esc)
+                    <button title="Close" type="button" onClick={this.closeStoryForm}
+                            className="btn btn-xs close-editable-btn ">Close
                     </button>
                 </div>
 
                 <ContentEditable
                     className="story-editable " placeholder="What's your story?"
                     html={this.state.story.description}
-                    onFocus={this.newStoryForm}
+                    onFocus={this.expandStoryForm}
                     onChange={e => this.handleDescriptionChange(e)}
                     />
 
@@ -74,12 +108,11 @@ class NewStory extends Component {
                                 disabled={this.state.isSubmittingForm}
                                 onClick={e => this.handleFormSubmit()}
                                 className="btn btn-primary">
-                                {this.state.isSubmittingForm ? 'Saving...' : 'Save'}
+                                {this.submitButtonText()}
                             </button>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -89,6 +122,11 @@ class NewStory extends Component {
             return el._destroy !== true;
         }).length;
     }
+
+    storyCoversId (){
+        return "story_covers" + this.state.story.id;
+    }
+
     renderUploadCoversButton = () => {
         let numberOfSelectedCovers = this.getNumberOfSelectedFiles();
         return (
@@ -108,14 +146,14 @@ class NewStory extends Component {
             position: 'absolute',
             zIndex: -1
           }}
-                    id="story_covers"
+                    id={this.storyCoversId()}
                     onChange={e => this.handleBookCoversChange(e)}
                     className="form-control"
                     />
                 <label
                     disabled={this.state.isSubmittingForm}
                     className="btn btn-success"
-                    htmlFor="story_covers">
+                    htmlFor={this.storyCoversId()}>
                     <span className="fa fa-cloud-upload"/>
                     &nbsp; &nbsp;
                     {numberOfSelectedCovers === 0
@@ -225,8 +263,8 @@ class NewStory extends Component {
             let file = selectedBookCoverFiles[i];
             if (file.id) {
                 if (file._destroy) {
-                    formData.append(`story[photos_attributes][${i}][id]`, file.id);
-                    formData.append(`story[photos_attributes][${i}][_destroy]`, '1');
+                    formData.append(`story[photos_attachments_attributes][${i}][id]`, file.id);
+                    formData.append(`story[photos_attachments_attributes][${i}][_destroy]`, '1');
                 }
             } else {
                 formData.append(
@@ -242,8 +280,8 @@ class NewStory extends Component {
 
     submitForm = () => {
         var self = this;
-        var url = REACT_CLIENT.api.base_url + '/stories/';
-        qwest.post(url, this.buildFormData(), null, function (xhr) {
+        var url = REACT_CLIENT.api.base_url + '/stories/' + (self.editing ? this.state.story.id : '');
+        qwest.map(self.editing ? 'PATCH' : 'POST', url, this.buildFormData(), null, function (xhr) {
             xhr.upload.onprogress = function (progressEvent) {
                 let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
                 self.setState({
@@ -253,7 +291,8 @@ class NewStory extends Component {
         }).then(function (xhr, resp) {
             if (resp) {
                 if (resp.story) {
-                    console.log(resp.story)
+                    self.editing ?
+                    self.props.onStoryUpdated(resp.story) :
                     self.props.onStoryAdded(resp.story)
                 }
                 self.setState({
@@ -289,4 +328,4 @@ class NewStory extends Component {
     }
 }
 
-export default NewStory;
+export default StoryForm;

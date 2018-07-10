@@ -1,16 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Modal,ModalManager,Effect} from 'react-dynamic-modal';
-import StoryEditModal from './StoryEdit.js';
 
-class StoryOptions extends React.Component {
+class CommentOptions extends React.Component {
     constructor(props) {
         super(props);
-        this.story = this.props.story;
-        this.currentUser = this.props.currentUser;
+
+        this.currentUser = this.props.currentUser || {};
         this.state = {
             dropDownStatus: '',
-            story: this.story
+            comment: this.props.comment
         }
     }
 
@@ -22,11 +20,7 @@ class StoryOptions extends React.Component {
     }
 
     isOwner() {
-       return (this.currentUser && this.currentUser.id == this.story.user.id)
-    }
-
-    openEditModal = () => {
-        ModalManager.open(<StoryEditModal story={this.story} onStoryUpdated={this.props.onStoryUpdated} onRequestClose={() => true}/>);
+        return (this.currentUser && this.currentUser.id == this.state.comment.user.id)
     }
 
     render() {
@@ -35,12 +29,12 @@ class StoryOptions extends React.Component {
                 <i className="fa fa-ellipsis-v"></i>
                 <span className="custom-dropdown-content">
                     {this.isOwner() &&
-                    <span className=" text-center" onClick={this.openEditModal}>
+                    <span className=" text-center" onClick={this.props.editComment}>
                         <i className="sl sl-icon-pencil"></i> Edit
                     </span>
                     }
                     {this.isOwner() &&
-                    <span className=" text-center" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.deleteStory(this.state.story) } } >
+                    <span className=" text-center" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.props.deleteComment(this.state.comment) } } >
                         <i className="fa fa-times"></i> Delete
                         </span>
                     }
@@ -50,7 +44,7 @@ class StoryOptions extends React.Component {
     }
 }
 
-StoryOptions.propTypes = {
+CommentOptions.propTypes = {
     comment: PropTypes.object
 };
-export default StoryOptions
+export default CommentOptions

@@ -17,15 +17,23 @@ class Story extends React.Component {
         this.handleInspired = this.props.handleInspired;
     }
 
-
-    render() {
-        const cleanDescription = sanitizeHtml(this.story.description, {
+    cleanDescription() {
+        let _cleanDescription = sanitizeHtml(this.story.description, {
             allowedTags: ['b', 'i', 'em', 'strong', 'a', 'br'],
             allowedAttributes: {
                 a: ['href', 'target']
             }
-
         });
+        let photosHtml = '';
+        this.story.photos.map(photo => {
+                photosHtml += `<a class="photo" target="_blank" href="${photo.url}"><img src="${photo.url}"></a>`
+            }
+        )
+        return _cleanDescription + photosHtml
+    }
+
+    render() {
+
         return (
             <div className="story-item story-item-popup UserSmallListItem"
                  data-story-id={this.story.id}>
@@ -39,12 +47,15 @@ class Story extends React.Component {
                           <span className="username u-dir u-textTruncate" dir="ltr">@<b>{this.user.handle}</b></span>
                           </span>
                     </a>
-                    <a className="time-ago" href={"/stories/" + this.story.id} target="blank">
-                        <TimeAgo date={this.story.created_at} />
+                    <a className="time-ago" href={"/stories/" + this.story.id} target="_blank">
+                        <TimeAgo date={this.story.created_at}/>
                     </a>
-                    <StoryOptions story={this.story} currentUser={this.currentUser}/>
+                    <StoryOptions story={this.story}
+                                  onStoryUpdated={this.props.onStoryUpdated}
+                                  deleteStory={this.props.deleteStory}
+                                  currentUser={this.currentUser}/>
 
-                    <p className="story-content" dangerouslySetInnerHTML={{__html: cleanDescription}}/>
+                    <p className="story-content" dangerouslySetInnerHTML={{__html: this.cleanDescription()}}/>
                 </div>
                 <StoryShare story={this.story} handleInspired={this.handleInspired} currentUser={this.currentUser}/>
                 <StoryComments story={this.story} currentUser={this.currentUser}/>

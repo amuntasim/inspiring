@@ -11,7 +11,7 @@ class Story < ApplicationRecord
 
   has_many :taggings, as: :taggable, validate: false
   has_many :tags, through: :taggings, validate: false
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :inspirations, as: :inspiring
 
   accepts_nested_attributes_for :photos_attachments, allow_destroy: true

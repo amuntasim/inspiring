@@ -5,13 +5,13 @@ import InfiniteScroll from 'react-infinite-scroller';
 import update from 'immutability-helper';
 import qwest from 'qwest';
 import Story from '../Story.js';
-import NewStory from '../NewStory.js';
+import StoryForm from '../StoryForm.js';
 
 class UserStoryList extends React.Component {
     constructor(props) {
         super(props);
 
-        var currentUser = props.current_user || {}
+        var currentUser = props.current_user ? props.current_user.user : {}
         currentUser.inspiredStoryIds = currentUser.inspiredStoryIds || []
 
         var stories = [];
@@ -90,11 +90,28 @@ class UserStoryList extends React.Component {
                         story.current_user_inspired = false;
                     }
 
-                    const index = self.state.stories.findIndex((_story) => _story.id === story.id);
-                    const updatedStories = update(self.state.stories, {$splice: [[index, 1, story]]});
-                    self.setState({stories: updatedStories});
+                    self.onStoryUpdated(story)
                 }
             });
+    }
+
+    deleteStory = (story) => {
+        var self = this;
+        var url = REACT_CLIENT.api.base_url + '/stories/' +
+            story.id;
+        qwest.delete(url, null, null)
+            .then(function (xhr, resp) {
+                self.onStoryDeleted(story)
+            }).catch(function (e, xhr, response) {
+                console.log(e)
+            });
+    }
+
+    onStoryDeleted = (story) => {
+        let stories = this.state.stories
+        const index = stories.findIndex((_story) => _story.id === story.id);
+        stories.splice(index, 1);
+        this.setState({stories: stories});
     }
 
     onStoryAdded = (story) => {
@@ -102,20 +119,31 @@ class UserStoryList extends React.Component {
         stories.unshift(story)
         this.setState({stories: stories});
     }
+
+    onStoryUpdated = (story) => {
+        const index = this.state.stories.findIndex((_story) => _story.id === story.id);
+        const updatedStories = update(this.state.stories, {$splice: [[index, 1, story]]});
+        this.setState({stories: updatedStories});
+    }
+
     render() {
         const loader = <div className="loader" key={0}>Loading ...</div>;
 
         var items = [];
         this.state.stories.map((story, i) => {
             items.push(
-                <Story key={story.id} story={story} handleInspired={this.handleInspired}
+                <Story key={story.id}
+                       story={story}
+                       handleInspired={this.handleInspired}
+                       onStoryUpdated={this.onStoryUpdated}
+                       deleteStory={this.deleteStory}
                        currentUser={this.state.currentUser}/>
             );
         });
 
         return (
             <div>
-                <NewStory onStoryAdded={this.onStoryAdded}/>
+                <StoryForm onStoryAdded={this.onStoryAdded} currentUser={this.state.currentUser}/>
                 <InfiniteScroll
                     pageStart={0}
                     loadMore={this.loadItems.bind(this)}
